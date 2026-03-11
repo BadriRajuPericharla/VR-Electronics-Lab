@@ -117,12 +117,40 @@ public class CircuitSolver : MonoBehaviour
         Vector3 legLocalPos = breadboardManager.breadboardRoot.InverseTransformPoint(leg.transform.position);
         Vector3 legPosRelToRegion = legLocalPos - legRegion.localOrigin;
 
+        //if (legRegion.connectivityType == GridRegion.ConnectivityType.rowsConnected)
+        //{
+        //    int row = Mathf.RoundToInt(legPosRelToRegion.x / legRegion.rowSpacing);
+        //    row = Mathf.Clamp(row, 0, legRegion.rows - 1);
+
+        //    return $"{legRegion.regionName}_row_{row}";
+        //}
         if (legRegion.connectivityType == GridRegion.ConnectivityType.rowsConnected)
         {
-            int row = Mathf.RoundToInt(legPosRelToRegion.x / legRegion.rowSpacing);
-            row = Mathf.Clamp(row, 0, legRegion.rows - 1);
+            // Columns are along Z axis — use col as the node key
+            // because all rows (a-e) in the same column share one node
+            int col;
+            if (legRegion.isSegmentedCol)
+            {
+                col = 0;
+                float minDistance = Mathf.Infinity;
+                for (int c = 0; c < legRegion.columns; c++)
+                {
+                    float colZPos = legRegion.GetColumnXOffset(c);
+                    float distance = Mathf.Abs(legPosRelToRegion.z - colZPos);
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        col = c;
+                    }
+                }
+            }
+            else
+            {
+                col = Mathf.RoundToInt(legPosRelToRegion.z / legRegion.columnSpacing);
+                col = Mathf.Clamp(col, 0, legRegion.columns - 1);
+            }
 
-            return $"{legRegion.regionName}_row_{row}";
+            return $"{legRegion.regionName}_col_{col}";
         }
         else
         {
