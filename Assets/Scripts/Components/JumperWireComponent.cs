@@ -10,6 +10,7 @@ public class JumperWireComponent : CircuitComponent
     {
         solver = FindAnyObjectByType<CircuitSolver>();
 
+        legs = new ComponentLeg[2];
         if(plugA != null) legs[0] = plugA.leg;
         if(plugB != null) legs[1] = plugB.leg;
     }

@@ -74,12 +74,20 @@ public class CircuitSolver : MonoBehaviour
         }
     }
 
+    //public void RegisterComponent(CircuitComponent comp)
+    //{
+    //    if (!components.Contains(comp))
+    //    {
+    //        components.Add(comp);
+    //    }
+    //    Solve();
+    //}
+
     public void RegisterComponent(CircuitComponent comp)
     {
+        Debug.Log($"RegisterComponent called for: {comp.gameObject.name}");
         if (!components.Contains(comp))
-        {
             components.Add(comp);
-        }
         Solve();
     }
 
@@ -228,7 +236,7 @@ public class CircuitSolver : MonoBehaviour
                 if (battery.legs[0].node != null)
                 {
                     highVoltage = battery.legs[0].node.voltage;
-                    highVoltage = 5f;
+                    //highVoltage = 5f;//hardcoded voltage
                     Debug.Log($"Battery + node voltage: {highVoltage}V");
                 }
                 else Debug.Log("Battery + leg node is NULL");
@@ -236,7 +244,7 @@ public class CircuitSolver : MonoBehaviour
                 if (battery.legs[1].node != null)
                 {
                     lowVoltage = battery.legs[1].node.voltage;
-                    lowVoltage = 0f;
+                    //lowVoltage = 0f;//harcoded voltage
                     Debug.Log($"Battery - node voltage: {lowVoltage}V");
                 }
                 else Debug.Log("Battery - leg node is NULL");
@@ -284,8 +292,8 @@ public class CircuitSolver : MonoBehaviour
         solvedCurrent = voltageAcrossResistor / totalResistance;
         Debug.Log($"SUCCESS: solvedCurrent = {solvedCurrent}A");
 
-        nodeMap["battery_positive"].voltage = 5f;
-        nodeMap["battery_negative"].voltage = 0f;
+        //nodeMap["battery_positive"].voltage = 5f;//hardcoded voltage
+        //nodeMap["battery_negative"].voltage = 0f;//hardcoded voltage
 
         foreach (var kvp in nodeMap)
         {

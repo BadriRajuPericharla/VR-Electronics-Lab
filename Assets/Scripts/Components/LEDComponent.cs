@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LEDComponent : CircuitComponent
@@ -36,77 +34,41 @@ public class LEDComponent : CircuitComponent
         currentState = LEDState.Off;
     }
 
-    //public override void Simulate(CircuitSolver solver)
-    //{
-    //    if (currentState == LEDState.Blown) return;
-
-    //    //if two legs are not connected then LED will not glow
-    //    if (!IsFullyConnected())
-    //    {
-    //        SetState(LEDState.Off);
-    //        return;
-    //    }
-
-    //    //here we are passing leg[0] and leg[1] because this method automatically takes legs from circuitComponent
-    //    float voltageDrop = GetVoltageDrop(0, 1); 
-
-    //    if(voltageDrop < forwardVoltage)
-    //    {
-    //        SetState(LEDState.Off);
-    //        return;
-    //    }
-
-
-    //    float current = solver.solvedCurrent;
-
-    //    if (current > maxSafeCurrent)
-    //    {
-    //        SetState(LEDState.Blown);
-    //    }
-    //    else
-    //    {
-    //        SetState(LEDState.Glowing);
-    //    }
-    //}
-
     public override void Simulate(CircuitSolver solver)
     {
-        Debug.Log($"LED Simulate called. currentState={currentState}");
+        if (currentState == LEDState.Blown) return;
 
-        if (currentState == LEDState.Blown)
-        {
-            Debug.Log("LED is blown, skipping");
-            return;
-        }
-
+        //if two legs are not connected then LED will not glow
         if (!IsFullyConnected())
         {
-            Debug.Log("LED not fully connected");
+            Debug.Log("LED: Not Fully connected");
             SetState(LEDState.Off);
             return;
         }
 
+        //here we are passing leg[0] and leg[1] because this method automatically takes legs from circuitComponent
         float voltageDrop = GetVoltageDrop(0, 1);
-        Debug.Log($"LED voltageDrop = {voltageDrop}V, forwardVoltage = {forwardVoltage}V");
+        Debug.Log($"Voltage Drop:{voltageDrop} Fwd Voltage: {forwardVoltage}");
 
         if (voltageDrop < forwardVoltage)
         {
-            Debug.Log("LED off - not enough voltage");
+            Debug.Log("voltage is not enough");
             SetState(LEDState.Off);
             return;
         }
 
+
         float current = solver.solvedCurrent;
-        Debug.Log($"LED current = {current}A, maxSafe = {maxSafeCurrent}A");
+        Debug.Log($"Solved Current: {current}, Max safe current: {maxSafeCurrent}");
 
         if (current > maxSafeCurrent)
         {
-            Debug.Log("LED BLOWN");
+            Debug.Log("Current is exceeded max safe current, bulb blown");
             SetState(LEDState.Blown);
         }
         else
         {
-            Debug.Log("LED GLOWING");
+            Debug.Log("Bulb is glowing");
             SetState(LEDState.Glowing);
         }
     }
@@ -144,6 +106,7 @@ public class LEDComponent : CircuitComponent
         {
             bulbMaterial.DisableKeyword("_EMISSION");
             bulbMaterial.SetColor(EmissionColor, Color.black);
+            bulbMaterial.globalIlluminationFlags = MaterialGlobalIlluminationFlags.EmissiveIsBlack;
         }
 
         if(glowLight != null)
@@ -160,13 +123,14 @@ public class LEDComponent : CircuitComponent
         {
             bulbMaterial.EnableKeyword("_EMISSION");
             bulbMaterial.SetColor(EmissionColor, ledColor * 2f);
+            bulbMaterial.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
         }
 
         if (glowLight != null)
         {
             glowLight.enabled = true;
             glowLight.color = ledColor;
-            glowLight.intensity = 1.5f;
+            glowLight.intensity = 15f;
         }
 
         PlayHum();

@@ -70,6 +70,7 @@ public class BatteryComponent : CircuitComponent
         foreach(ComponentLeg leg in legs)
         {
             leg.isSnapped = true;
+            leg.snapTarget = leg.GetComponent<SnapTarget>();
         }
 
         solver.RegisterComponent(this);
