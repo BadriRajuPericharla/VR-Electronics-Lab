@@ -34,9 +34,6 @@ public class SnappableComponent : MonoBehaviour
 
     private void OnGrabbed(SelectEnterEventArgs args)
     {
-        Debug.Log($"{gameObject.name} was grabbed. isPlaced = {isPlaced}, xrGrab.enabled = {xrGrab.enabled}");
-
-
         if (isPlaced)
         {
             isPlaced = false;

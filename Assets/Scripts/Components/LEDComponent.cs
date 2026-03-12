@@ -148,13 +148,13 @@ public class LEDComponent : CircuitComponent
             bulbMaterial.EnableKeyword("_EMISSION");
             bulbMaterial.SetColor(EmissionColor, Color.white * 5f);
         }
+        StopHum();
 
         if(audioSource != null && popSound != null)
         {
             audioSource.PlayOneShot(popSound);
         }
 
-        StopHum();
 
         Invoke(nameof(ApplyOff), 0.1f);
     }
