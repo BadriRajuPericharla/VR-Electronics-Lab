@@ -7,6 +7,7 @@ public abstract class CircuitComponent : MonoBehaviour
     public ComponentLeg[] legs;
 
     public abstract void Simulate(CircuitSolver solver);
+    public abstract void Stamp(float[,] G, float[] I, List<Node> unknownNodes);
     public abstract void ResetState();
 
     public bool IsFullyConnected()

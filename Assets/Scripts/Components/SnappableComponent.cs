@@ -77,12 +77,14 @@ public class SnappableComponent : MonoBehaviour
 
             if (component != null)
             {
-                solver.RegisterComponent(component);
 
                 if(component is BatteryComponent battery)
                 {
-                    battery.OnPlaced();
-                    solver.Solve();
+                    battery.OnPlaced(); 
+                }
+                else
+                {
+                    solver.RegisterComponent(component);
                 }
             }
 

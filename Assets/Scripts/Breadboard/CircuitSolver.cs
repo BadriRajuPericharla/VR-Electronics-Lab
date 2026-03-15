@@ -8,15 +8,13 @@ public class CircuitSolver : MonoBehaviour
 
     [Header("Voltage")]
     public float supplyVoltage = 5f;
-    public float solvedCurrent = 0f;
 
     private Dictionary<string, Node> nodeMap = new Dictionary<string, Node>();
     private List<CircuitComponent> components = new List<CircuitComponent>();
+    
 
 
     int nextNodeId;
-
-
 
     public void Solve()
     {
@@ -42,12 +40,17 @@ public class CircuitSolver : MonoBehaviour
 
         MergeWireNodes();
 
+        foreach (var kvp in nodeMap)
+        {
+            Debug.Log($"After merge - Node: {kvp.Key} = {kvp.Value.nodeId}");
+        }
+
         //setting battery
         foreach (CircuitComponent comp in components)
         {
             if (comp is BatteryComponent battery)
             {
-                if (battery.legs[0].node != null && battery.legs[1].node != null)
+                if (battery.isPowerOn && battery.legs[0].node != null && battery.legs[1].node != null)
                 {
                     battery.legs[0].node.voltage = supplyVoltage;
                     battery.legs[1].node.voltage = 0f;
@@ -55,12 +58,24 @@ public class CircuitSolver : MonoBehaviour
             }
         }
 
-        CalculateVoltages();
-
-        foreach (CircuitComponent comp in components)
+        if (IsCircuitValid())
         {
-            comp.Simulate(this);
+            SolveNodalAnalysis();
+            foreach (CircuitComponent comp in components)
+            {
+                comp.Simulate(this);
+            }
         }
+        else
+        {
+            foreach(CircuitComponent comp in components)
+            {
+                comp.ResetState();
+            }
+        }
+
+
+            
     }
 
     public void RegisterComponent(CircuitComponent comp)
@@ -140,83 +155,203 @@ public class CircuitSolver : MonoBehaviour
         }
     }
 
-    private void CalculateVoltages()
+    public void SolveNodalAnalysis()
     {
-        float totalResistance = 0f;
-        float totalForwardVoltage = 0f;
-        float highVoltage = -1f;
-        float lowVoltage = -1f;
-        bool batteryOn = false;
-
-        foreach (CircuitComponent comp in components)
+        //pre-step for LED
+        foreach(CircuitComponent comp in components)
         {
-            if (comp is ResisterComponent resister)
+            if(comp is LEDComponent led)
             {
-                totalResistance += resister.resistance;
-            }
+                Node anode = led.legs[0].node;
+                Node cathode = led.legs[1].node;
 
-            if (comp is LEDComponent led)
-            {
-                totalForwardVoltage += led.forwardVoltage;
-            }
+                if (anode == null || cathode == null) continue;
 
-            if (comp is BatteryComponent battery)
-            {
-                batteryOn = battery.isPowerOn;
-
-                if (battery.legs[0].node != null)
+                //case: 1 cathode is known & anode is unknown
+                if(cathode.voltage != -1f && anode.voltage == -1f)
                 {
-                    highVoltage = battery.legs[0].node.voltage;
+                    if(supplyVoltage - cathode.voltage >= led.forwardVoltage)
+                    {
+                        anode.voltage = cathode.voltage + led.forwardVoltage;
+                    }
                 }
-
-                if (battery.legs[1].node != null)
+                //case: 1 cathode is unknown & anode is known
+                else if (cathode.voltage == -1f && anode.voltage != -1f)
                 {
-                    lowVoltage = battery.legs[1].node.voltage;
+                    if(anode.voltage >= led.forwardVoltage)
+                    {
+                        cathode.voltage = anode.voltage - led.forwardVoltage; //cathode should be lower than anode
+                    }
                 }
-                
             }
-
         }
 
-        if (!batteryOn)
-        {
-            return;
-        }
-
-        if (highVoltage < 0f || lowVoltage < 0f)
-        {
-            return;
-        }
-
-        float availableVoltage = highVoltage - lowVoltage;
-        if (availableVoltage <= 0f)
-        {
-            return;
-        }
-
-        if (totalResistance <= 0f)
-        {
-            solvedCurrent = 999f;
-            return;
-        }
-
-        float voltageAcrossResistor = availableVoltage - totalForwardVoltage;
-        if (voltageAcrossResistor <= 0f)
-        {
-            solvedCurrent = 0f;
-            return;
-        }
-
-        solvedCurrent = voltageAcrossResistor / totalResistance;
 
 
+        List<Node> unknownNodes = new List<Node>();
+
+        //step 1: get the unknown nodes
         foreach (var kvp in nodeMap)
         {
             if (kvp.Value.voltage == -1f)
             {
-                kvp.Value.voltage = lowVoltage + totalForwardVoltage;
+                unknownNodes.Add(kvp.Value);
             }
         }
+
+
+        //setp 2: Create G-Matrix and I-Array
+        float[,] G = new float[unknownNodes.Count, unknownNodes.Count];
+        float[] I = new float[unknownNodes.Count];
+
+        //step 3: Stamp the components
+        foreach (CircuitComponent comp in components)
+        {
+            comp.Stamp(G, I, unknownNodes);
+        }
+
+        // debug matrix
+        for (int r = 0; r < unknownNodes.Count; r++)
+        {
+            string row = "";
+            for (int c = 0; c < unknownNodes.Count; c++)
+            {
+                row += $"G[{r},{c}]={G[r, c]:F4} ";
+            }
+            Debug.Log($"Matrix Row {r}: {row} | I={I[r]:F4}");
+        }
+
+        //step 4: solve the matrix
+        float[] voltagesArray = SolveGaussian(G, I);
+
+        //setp 5: assign voltages to unknown nodes
+        for (int i = 0; i < unknownNodes.Count; i++)
+        {
+            unknownNodes[i].voltage = voltagesArray[i];
+        }
+
+        foreach (var kvp in nodeMap)
+        {
+            Debug.Log($"Node: {kvp.Key} = {kvp.Value.voltage}V");
+        }
+    }
+
+    public bool IsCircuitValid()
+    {
+        bool hasResistor = false;
+        foreach(CircuitComponent comp in components)
+        {
+            if (comp is ResisterComponent) hasResistor = true;
+        }
+        Debug.Log($"HasResistor: {hasResistor}");
+
+        if(!hasResistor) return false;
+
+        foreach (CircuitComponent comp in components)
+        {
+            if(comp is BatteryComponent b && b.isPowerOn)
+            {
+                Debug.Log($"Path Complete??: {HasCompletePath(b.legs[0].node, b.legs[1].node)}");
+
+                if (HasCompletePath(b.legs[0].node, b.legs[1].node))
+                {
+                    return true;
+                }
+            }
+        }
+        Debug.Log("Path not Valid");
+        return false;
+
+    }
+
+    public bool HasCompletePath(Node startNode, Node endNode)
+    {
+        HashSet<Node> visited = new HashSet<Node>();
+        Queue<Node> hasToCheck = new Queue<Node>();
+
+        hasToCheck.Enqueue(startNode);
+        visited.Add(startNode);
+
+        while(hasToCheck.Count > 0)
+        {
+            Node currentNode = hasToCheck.Dequeue();
+
+            if (currentNode == endNode)
+            {
+                Debug.Log($"Visited Path: {visited}");
+                return true;
+            }
+
+            foreach(CircuitComponent comp in components)
+            {
+                for(int i = 0; i < comp.legs.Length; i++)
+                {
+                    for(int j = 0; j < comp.legs.Length; j++)
+                    {
+                        if (i == j) continue;
+                        if (comp.legs[i].node == currentNode)
+                        {
+                            Node nextNode = comp.legs[j].node;
+                            if (nextNode == null) continue;
+
+                            if (!visited.Contains(nextNode))
+                            {
+                                hasToCheck.Enqueue(nextNode);
+                                visited.Add(nextNode);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        Debug.Log($"Visited Path: {visited}");
+        return false;
+    }
+
+    //This is matrix solving function, copy pasted from claude., basic idea is
+    //1. take one equation
+    //2. get factor by deviding one quotient(factor is 2/1.2 or 3.2/4  0.5 + 2B + 3.2C = 4 | 3 + 1.2B + 4C = 1 ) this goes on until one unknown is remaining in the equation
+    //3. now multiply that factor with one equation to remove that variable, this goes on until one equation is left
+    //4. substitute the value got by solving
+    //5. add to the list
+    private float[] SolveGaussian(float[,] G, float[] I)
+    {
+        int n = I.Length;
+
+        // Forward elimination
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = i + 1; j < n; j++)
+            {
+                if (G[i, i] == 0) continue;
+                float factor = G[j, i] / G[i, i];
+
+                for (int k = i; k < n; k++)
+                {
+                    G[j, k] -= factor * G[i, k];
+                }
+
+                I[j] -= factor * I[i];
+            }
+        }
+
+        // Back substitution
+        float[] result = new float[n];
+
+        for (int i = n - 1; i >= 0; i--)
+        {
+            result[i] = I[i];
+
+            for (int j = i + 1; j < n; j++)
+            {
+                result[i] -= G[i, j] * result[j];
+            }
+
+            if (G[i, i] == 0) continue;
+            result[i] /= G[i, i];
+        }
+
+        return result;
     }
 
     private void MergeWireNodes()

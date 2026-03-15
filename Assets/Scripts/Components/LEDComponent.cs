@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LEDComponent : CircuitComponent
@@ -5,7 +6,9 @@ public class LEDComponent : CircuitComponent
     [Header("LED Properties")]
     public float forwardVoltage = 2.0f;
     public float maxSafeCurrent = 0.030f;
+    float ledResistance;
     public Color ledColor = Color.red;
+
 
     [Header("Visuals")]
     public MeshRenderer bulbRender;
@@ -32,6 +35,7 @@ public class LEDComponent : CircuitComponent
         }
 
         currentState = LEDState.Off;
+        ledResistance = forwardVoltage / maxSafeCurrent;
     }
 
     public override void Simulate(CircuitSolver solver)
@@ -58,7 +62,7 @@ public class LEDComponent : CircuitComponent
         }
 
 
-        float current = solver.solvedCurrent;
+        float current = GetVoltageDrop(0, 1) / ledResistance;
         Debug.Log($"Solved Current: {current}, Max safe current: {maxSafeCurrent}");
 
         if (current > maxSafeCurrent)
@@ -71,6 +75,39 @@ public class LEDComponent : CircuitComponent
             Debug.Log("Bulb is glowing");
             SetState(LEDState.Glowing);
         }
+    }
+
+    public override void Stamp(float[,] G, float[] I, List<Node> unknownNodes)
+    {
+        //Node nodeA = legs[0].node;
+        //Node nodeB = legs[1].node;
+
+        
+        //float g = 1f / ledResistance;
+
+        //int indexA = unknownNodes.IndexOf(nodeA);
+        //int indexB = unknownNodes.IndexOf(nodeB);
+
+        ////s1: both are unknown
+        //if(indexA >= 0 && indexB >= 0)
+        //{
+        //    G[indexA, indexA] += g;
+        //    G[indexB, indexB] += g;
+        //    G[indexA, indexB] -= g;
+        //    G[indexB, indexA] -= g;
+        //}
+        ////s2: A is known & B is unknown
+        //else if(indexA < 0 && indexB >= 0)
+        //{
+        //    G[indexB, indexB] += g;
+        //    I[indexB] += g * nodeA.voltage;
+        //}
+        ////s3: B is known & A is unKnown
+        //else if(indexA >= 0 && indexB < 0)
+        //{
+        //    G[indexA, indexA] += g;
+        //    I[indexA] += g * nodeB.voltage;
+        //}
     }
 
     public override void ResetState()

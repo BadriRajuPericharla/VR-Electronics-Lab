@@ -56,9 +56,13 @@ public class BatteryComponent : CircuitComponent
         //battery can't simulate, it is just a power source
     }
 
+    public override void Stamp(float[,] G, float[] I, List<Node> unknownNodes)
+    {
+        //no need to stamp battery into matrix, already voltages of battery set in editor
+    }
+
     public override void ResetState()
     {
-        isPowerOn = false;
         ApplyVisuals();
     }
 
