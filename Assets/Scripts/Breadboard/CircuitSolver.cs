@@ -40,11 +40,6 @@ public class CircuitSolver : MonoBehaviour
 
         MergeWireNodes();
 
-        foreach (var kvp in nodeMap)
-        {
-            Debug.Log($"After merge - Node: {kvp.Key} = {kvp.Value.nodeId}");
-        }
-
         //setting battery
         foreach (CircuitComponent comp in components)
         {
@@ -81,8 +76,11 @@ public class CircuitSolver : MonoBehaviour
     public void RegisterComponent(CircuitComponent comp)
     {
         if (!components.Contains(comp))
+        {
             components.Add(comp);
-        Solve();
+            Solve();
+        }
+
     }
 
     public void UnRegisterComponent(CircuitComponent comp)
@@ -158,7 +156,7 @@ public class CircuitSolver : MonoBehaviour
     public void SolveNodalAnalysis()
     {
         //pre-step for LED
-        foreach(CircuitComponent comp in components)
+        foreach (CircuitComponent comp in components)
         {
             if(comp is LEDComponent led)
             {
@@ -210,16 +208,7 @@ public class CircuitSolver : MonoBehaviour
             comp.Stamp(G, I, unknownNodes);
         }
 
-        // debug matrix
-        for (int r = 0; r < unknownNodes.Count; r++)
-        {
-            string row = "";
-            for (int c = 0; c < unknownNodes.Count; c++)
-            {
-                row += $"G[{r},{c}]={G[r, c]:F4} ";
-            }
-            Debug.Log($"Matrix Row {r}: {row} | I={I[r]:F4}");
-        }
+        
 
         //step 4: solve the matrix
         float[] voltagesArray = SolveGaussian(G, I);
@@ -230,10 +219,6 @@ public class CircuitSolver : MonoBehaviour
             unknownNodes[i].voltage = voltagesArray[i];
         }
 
-        foreach (var kvp in nodeMap)
-        {
-            Debug.Log($"Node: {kvp.Key} = {kvp.Value.voltage}V");
-        }
     }
 
     public bool IsCircuitValid()
@@ -243,7 +228,6 @@ public class CircuitSolver : MonoBehaviour
         {
             if (comp is ResisterComponent) hasResistor = true;
         }
-        Debug.Log($"HasResistor: {hasResistor}");
 
         if(!hasResistor) return false;
 
@@ -251,7 +235,6 @@ public class CircuitSolver : MonoBehaviour
         {
             if(comp is BatteryComponent b && b.isPowerOn)
             {
-                Debug.Log($"Path Complete??: {HasCompletePath(b.legs[0].node, b.legs[1].node)}");
 
                 if (HasCompletePath(b.legs[0].node, b.legs[1].node))
                 {
@@ -259,7 +242,6 @@ public class CircuitSolver : MonoBehaviour
                 }
             }
         }
-        Debug.Log("Path not Valid");
         return false;
 
     }
@@ -278,7 +260,6 @@ public class CircuitSolver : MonoBehaviour
 
             if (currentNode == endNode)
             {
-                Debug.Log($"Visited Path: {visited}");
                 return true;
             }
 
@@ -304,7 +285,6 @@ public class CircuitSolver : MonoBehaviour
                 }
             }
         }
-        Debug.Log($"Visited Path: {visited}");
         return false;
     }
 
