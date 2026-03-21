@@ -236,10 +236,13 @@ public class CircuitSolver : MonoBehaviour
             if(comp is BatteryComponent b && b.isPowerOn)
             {
 
-                if (HasCompletePath(b.legs[0].node, b.legs[1].node))
-                {
-                    return true;
-                }
+                //if (HasCompletePath(b.legs[0].node, b.legs[1].node))
+                //{
+                //    return true;
+                //}
+                bool result = HasCompletePath(b.legs[0].node, b.legs[1].node);
+                Debug.Log($"IsCircuitValid: hasResistor={hasResistor}, pathComplete={result}");
+                return result;
             }
         }
         return false;
@@ -265,6 +268,8 @@ public class CircuitSolver : MonoBehaviour
 
             foreach(CircuitComponent comp in components)
             {
+                if(comp is BatteryComponent) continue;
+
                 for(int i = 0; i < comp.legs.Length; i++)
                 {
                     for(int j = 0; j < comp.legs.Length; j++)
