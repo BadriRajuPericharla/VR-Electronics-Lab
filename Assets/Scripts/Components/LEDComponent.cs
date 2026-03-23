@@ -54,6 +54,12 @@ public class LEDComponent : CircuitComponent
 
         if (voltageDrop < forwardVoltage)
         {
+            if(voltageDrop < 0)
+                Debug.Log("Circuit polarity is wrong!, Try change polarity");
+
+            else
+                Debug.Log($"voltage: {voltageDrop} is not enough");
+
             SetState(LEDState.Off);
             return;
         }
@@ -63,10 +69,12 @@ public class LEDComponent : CircuitComponent
 
         if (current > maxSafeCurrent)
         {
+            Debug.Log("LED Blown");
             SetState(LEDState.Blown);
         }
         else
         {
+            Debug.Log("LED is Glowing");
             SetState(LEDState.Glowing);
         }
     }

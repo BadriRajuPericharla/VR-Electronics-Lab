@@ -223,36 +223,31 @@ public class CircuitSolver : MonoBehaviour
 
     public bool IsCircuitValid()
     {
-        bool hasResistor = false;
-        foreach(CircuitComponent comp in components)
-        {
-            if (comp is ResisterComponent) hasResistor = true;
-        }
-
-        if(!hasResistor) return false;
 
         foreach (CircuitComponent comp in components)
         {
             if(comp is BatteryComponent b && b.isPowerOn)
             {
 
-                //if (HasCompletePath(b.legs[0].node, b.legs[1].node))
-                //{
-                //    return true;
-                //}
-                bool result = HasCompletePath(b.legs[0].node, b.legs[1].node);
-                Debug.Log($"IsCircuitValid: hasResistor={hasResistor}, pathComplete={result}");
-                return result;
+                if (HasCompletePath(b.legs[0].node, b.legs[1].node, out bool resistorInPath))
+                {
+                    Debug.Log($"resistorInPath: {resistorInPath}");
+
+                    if(resistorInPath)
+                        return true;
+                }
+                
             }
         }
         return false;
 
     }
 
-    public bool HasCompletePath(Node startNode, Node endNode)
+    public bool HasCompletePath(Node startNode, Node endNode, out bool resistorInPath)
     {
         HashSet<Node> visited = new HashSet<Node>();
         Queue<Node> hasToCheck = new Queue<Node>();
+        resistorInPath = false;
 
         hasToCheck.Enqueue(startNode);
         visited.Add(startNode);
@@ -269,6 +264,7 @@ public class CircuitSolver : MonoBehaviour
             foreach(CircuitComponent comp in components)
             {
                 if(comp is BatteryComponent) continue;
+                if (comp is ResisterComponent) resistorInPath = true;
 
                 for(int i = 0; i < comp.legs.Length; i++)
                 {
