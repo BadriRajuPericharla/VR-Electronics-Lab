@@ -11,10 +11,10 @@ public class BatteryComponent : CircuitComponent
 
     public CircuitSolver solver;
 
-    [Header("Light Visuals")]
-    public Light powerLight;
-    public Color onColor = Color.green;
-    public Color offColor = Color.gray;
+    //[Header("Light Visuals")]
+    //public Light powerLight;
+    //public Color onColor = Color.green;
+    //public Color offColor = Color.gray;
 
 
     private void Start()
@@ -33,7 +33,7 @@ public class BatteryComponent : CircuitComponent
     private void OnSwitchFlip(SelectEnterEventArgs args)
     {
         isPowerOn = !isPowerOn;
-        ApplyVisuals();
+        //ApplyVisuals();
 
         if(solver != null)
         {
@@ -42,14 +42,14 @@ public class BatteryComponent : CircuitComponent
         
     }
 
-    private void ApplyVisuals()
-    {
-        if(powerLight != null)
-        {
-            powerLight.color = isPowerOn ? onColor : offColor;
-            powerLight.intensity = isPowerOn ? 1.5f : 0.2f;
-        }
-    }
+    //private void ApplyVisuals()
+    //{
+    //    if(powerLight != null)
+    //    {
+    //        powerLight.color = isPowerOn ? onColor : offColor;
+    //        powerLight.intensity = isPowerOn ? 1.5f : 0.2f;
+    //    }
+    //}
 
     public override void Simulate(CircuitSolver circuitSolver)
     {
@@ -63,13 +63,13 @@ public class BatteryComponent : CircuitComponent
 
     public override void ResetState()
     {
-        ApplyVisuals();
+        //ApplyVisuals();
     }
 
     public void OnPlaced()
     {
         isPowerOn = true;
-        ApplyVisuals();
+        //ApplyVisuals();
         
         foreach(ComponentLeg leg in legs)
         {
