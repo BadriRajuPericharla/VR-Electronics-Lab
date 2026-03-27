@@ -133,7 +133,7 @@ public class BreadboardManager : MonoBehaviour
                     Vector3 localHolePos = GetLocalHolePosition(gridCoord, region);
                     Vector3 worldPos = breadboardRoot.TransformPoint(localHolePos);
 
-                    Gizmos.DrawWireSphere(worldPos, 0.01f);
+                    Gizmos.DrawWireSphere(worldPos, region.snapRange);
                 }
             }
 

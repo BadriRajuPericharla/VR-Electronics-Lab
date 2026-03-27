@@ -1,0 +1,22 @@
+# Unity recommended settings
+
+* text=auto
+
+# Force LF for Unity files (important)
+*.cs text eol=lf
+*.shader text eol=lf
+*.compute text eol=lf
+*.unity text eol=lf
+*.prefab text eol=lf
+*.mat text eol=lf
+*.meta text eol=lf
+*.asset text eol=lf
+
+# Binary files (don't touch)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.fbx binary
+*.mp3 binary
+*.wav binary
+*.ogg binary
