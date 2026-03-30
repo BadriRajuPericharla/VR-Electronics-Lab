@@ -447,10 +447,6 @@ MonoBehaviour:
   parentWire: {fileID: 7621353875539974204}
   occupiedTarget: {fileID: 0}
   isSnapped: 0
-  placedLayerMask:
-    m_Bits: 2
-  defaultLayerMask:
-    m_Bits: 1
 --- !u!1 &2867287293646985953
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,10 +1165,6 @@ MonoBehaviour:
   parentWire: {fileID: 7621353875539974204}
   occupiedTarget: {fileID: 0}
   isSnapped: 0
-  placedLayerMask:
-    m_Bits: 2
-  defaultLayerMask:
-    m_Bits: 1
 --- !u!1 &6936580294698133440
 GameObject:
   m_ObjectHideFlags: 0

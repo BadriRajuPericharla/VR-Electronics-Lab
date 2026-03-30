@@ -14,8 +14,6 @@ public class PlugSnappable : MonoBehaviour
 
     public bool isSnapped = false;
     private XRGrabInteractable xrGrab;
-    public InteractionLayerMask placedLayerMask;
-    public InteractionLayerMask defaultLayerMask;
     private void Awake()
     {
         xrGrab = GetComponent<XRGrabInteractable>();
@@ -28,7 +26,6 @@ public class PlugSnappable : MonoBehaviour
         if (isSnapped)
         {
             isSnapped = false;
-            xrGrab.interactionLayers = defaultLayerMask;
             xrGrab.enabled = true;
             leg.ClearSnap();
 
@@ -59,7 +56,6 @@ public class PlugSnappable : MonoBehaviour
             leg.snapTarget = null;
             leg.isSnapped = true;
             isSnapped = true;
-            xrGrab.interactionLayers = placedLayerMask;
 
             parentWire.OnPlugSnapped();
             xrGrab.enabled = false;
@@ -71,7 +67,6 @@ public class PlugSnappable : MonoBehaviour
             leg.snapTarget = snapTarget;
             leg.isSnapped = true;
             isSnapped = true;
-            xrGrab.interactionLayers = placedLayerMask;
 
             parentWire.OnPlugSnapped();
             xrGrab.enabled = false;

@@ -16,10 +16,12 @@ public class BreadboardManager : MonoBehaviour
     public bool showGizmos = true;
 
     private List<GridRegion> allRegions;
+    private Dictionary<string, bool> occupiedHoles = new Dictionary<string, bool>();
 
     private void Start()
     {
         InitializeAllRegions();
+        InitilizeHoles();
     }
 
     private void InitializeAllRegions()
@@ -38,6 +40,22 @@ public class BreadboardManager : MonoBehaviour
         };
     }
 
+    private void InitilizeHoles()
+    {
+        foreach(GridRegion region in allRegions)
+        {
+            for (int row = 0; row < region.rows; row++)
+            {
+                for (int col = 0; col < region.columns; col++)
+                {
+                    Vector2Int gridCoord = new Vector2Int(col, row);
+                    string holeKey = $"{region.regionName}_{gridCoord.x}_{gridCoord.y}";
+                    occupiedHoles[holeKey] = false;
+                }
+            }
+        }
+    }
+
     public bool TryGetSnapPoint(Vector3 legWorldPos, out Vector3 snapPoint, out GridRegion snapRegion)
     {
         Vector3 legLocalPos = breadboardRoot.InverseTransformPoint(legWorldPos);
@@ -51,7 +69,12 @@ public class BreadboardManager : MonoBehaviour
 
                 float distance = Vector3.Distance(localHolePos, legLocalPos);
 
-                if (distance <= region.snapRange)
+
+
+                string holeKey = $"{region.regionName}_{gridCoord.x}_{gridCoord.y}";
+                occupiedHoles.TryGetValue(holeKey, out bool isOccupied);
+
+                if (distance <= region.snapRange && !isOccupied)
                 {
                     snapPoint = breadboardRoot.TransformPoint(localHolePos);
                     snapRegion = region;
@@ -111,6 +134,22 @@ public class BreadboardManager : MonoBehaviour
         return new Vector3(x, y, z);
     }
 
+    public void ReleaseHole(string holeKey)
+    {
+        if(occupiedHoles.ContainsKey(holeKey))
+        {
+            occupiedHoles[holeKey] = false;
+        }
+    }
+
+    public void OccupiyHole(string holeKey)
+    {
+        if (occupiedHoles.ContainsKey(holeKey))
+        {
+            occupiedHoles[holeKey] = true;
+        }
+    }
+
     private void OnDrawGizmos()
     {
         if (!showGizmos) return;
@@ -132,6 +171,7 @@ public class BreadboardManager : MonoBehaviour
                     Vector2Int gridCoord = new Vector2Int(col, row);
                     Vector3 localHolePos = GetLocalHolePosition(gridCoord, region);
                     Vector3 worldPos = breadboardRoot.TransformPoint(localHolePos);
+
 
                     Gizmos.DrawWireSphere(worldPos, region.snapRange);
                 }

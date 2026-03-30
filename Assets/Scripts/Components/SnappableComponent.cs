@@ -18,8 +18,6 @@ public class SnappableComponent : MonoBehaviour
     private CircuitSolver solver;
     private CircuitComponent component; 
 
-    public InteractionLayerMask placedLayerMask;
-    public InteractionLayerMask defaultLayerMask;
 
     private void Awake()
     {
@@ -38,7 +36,7 @@ public class SnappableComponent : MonoBehaviour
         {
             isPlaced = false;
             xrGrab.enabled = true;
-            xrGrab.interactionLayers = defaultLayerMask;
+
 
             foreach(ComponentLeg leg in legs)
             {
@@ -73,7 +71,6 @@ public class SnappableComponent : MonoBehaviour
         {
             isPlaced = true;
 
-            xrGrab.interactionLayers = placedLayerMask;
 
             if (component != null)
             {
@@ -124,6 +121,7 @@ public class SnappableComponent : MonoBehaviour
             legs[i].transform.position = pendingSnapPoints[i];
             legs[i].isSnapped = true;
             legs[i].snappedRegion = pendingRegions[i];
+
         }
 
 

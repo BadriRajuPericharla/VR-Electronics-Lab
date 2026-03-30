@@ -8,6 +8,7 @@ public class ComponentLeg : MonoBehaviour
     [HideInInspector] public bool isSnapped = false;
     [HideInInspector] public GridRegion snappedRegion = null;
     [HideInInspector] public SnapTarget snapTarget = null;
+    [HideInInspector] public string occupiedHoleKey = "";
 
     public void ClearSnap()
     {
@@ -15,5 +16,6 @@ public class ComponentLeg : MonoBehaviour
         snappedRegion = null;
         snapTarget = null;
         isSnapped = false;
+
     }
 }
