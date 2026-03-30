@@ -56,7 +56,7 @@ public class BreadboardManager : MonoBehaviour
         }
     }
 
-    public bool TryGetSnapPoint(Vector3 legWorldPos, out Vector3 snapPoint, out GridRegion snapRegion)
+    public bool TryGetSnapPoint(Vector3 legWorldPos, out Vector3 snapPoint, out GridRegion snapRegion, out string holeKey)
     {
         Vector3 legLocalPos = breadboardRoot.InverseTransformPoint(legWorldPos);
 
@@ -69,9 +69,7 @@ public class BreadboardManager : MonoBehaviour
 
                 float distance = Vector3.Distance(localHolePos, legLocalPos);
 
-
-
-                string holeKey = $"{region.regionName}_{gridCoord.x}_{gridCoord.y}";
+                holeKey = $"{region.regionName}_{gridCoord.x}_{gridCoord.y}";   
                 occupiedHoles.TryGetValue(holeKey, out bool isOccupied);
 
                 if (distance <= region.snapRange && !isOccupied)
@@ -85,6 +83,7 @@ public class BreadboardManager : MonoBehaviour
 
         snapPoint = Vector3.zero;
         snapRegion = null;
+        holeKey = "";
         return false;
     }
 
@@ -142,7 +141,7 @@ public class BreadboardManager : MonoBehaviour
         }
     }
 
-    public void OccupiyHole(string holeKey)
+    public void OccupyHole(string holeKey)
     {
         if (occupiedHoles.ContainsKey(holeKey))
         {

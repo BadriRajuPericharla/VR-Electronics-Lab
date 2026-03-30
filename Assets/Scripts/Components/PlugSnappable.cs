@@ -14,6 +14,10 @@ public class PlugSnappable : MonoBehaviour
 
     public bool isSnapped = false;
     private XRGrabInteractable xrGrab;
+
+    private float holdReleaseTime = 2f;
+    private bool justHoldReleased = false;
+
     private void Awake()
     {
         xrGrab = GetComponent<XRGrabInteractable>();
@@ -25,17 +29,34 @@ public class PlugSnappable : MonoBehaviour
     {
         if (isSnapped)
         {
-            isSnapped = false;
-            xrGrab.enabled = true;
-            leg.ClearSnap();
-
-            if(occupiedTarget != null)
-            {
-                occupiedTarget.isOccupied = false;
-                occupiedTarget = null;
-            }
-            parentWire.OnPlugUnsnapped();
+            StartCoroutine(HoldToRelease());
         }
+    }
+
+    private IEnumerator HoldToRelease()
+    {
+        float timer = 0f;
+
+        while (timer < holdReleaseTime)
+        {
+            if (!xrGrab.isSelected) yield break;
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        justHoldReleased = true;
+        isSnapped = false;
+        breadboardManager.ReleaseHole(leg.occupiedHoleKey);
+        leg.occupiedHoleKey = "";
+        leg.ClearSnap();
+
+        if (occupiedTarget != null)
+        {
+            occupiedTarget.isOccupied = false;
+            occupiedTarget = null;
+        }
+        parentWire.OnPlugUnsnapped();
     }
 
     private void OnReleased(SelectExitEventArgs args)
@@ -48,7 +69,13 @@ public class PlugSnappable : MonoBehaviour
     {
         yield return null;
 
-        if(breadboardManager.TryGetSnapPoint(leg.transform.position, out Vector3 snapPoint, out GridRegion gridRegion))
+        if (justHoldReleased)
+        {
+            justHoldReleased = false;
+            yield return null;
+        }
+
+        if(breadboardManager.TryGetSnapPoint(leg.transform.position, out Vector3 snapPoint, out GridRegion gridRegion, out string holeKey))
         {
             leg.transform.position = snapPoint;
             leg.transform.localRotation = Quaternion.identity;
@@ -56,9 +83,9 @@ public class PlugSnappable : MonoBehaviour
             leg.snapTarget = null;
             leg.isSnapped = true;
             isSnapped = true;
-
+            leg.occupiedHoleKey = holeKey;
+            breadboardManager.OccupyHole(holeKey);
             parentWire.OnPlugSnapped();
-            xrGrab.enabled = false;
         }
         else if(snapTargetManager.TryGetSnapPoint(leg.transform.position, out Vector3 snapPoint2, out SnapTarget snapTarget))
         {
@@ -69,7 +96,6 @@ public class PlugSnappable : MonoBehaviour
             isSnapped = true;
 
             parentWire.OnPlugSnapped();
-            xrGrab.enabled = false;
         }
     }
 
@@ -79,7 +105,7 @@ public class PlugSnappable : MonoBehaviour
         if (isSnapped) return;
         if (!xrGrab.isSelected) return;
 
-        if(breadboardManager.TryGetSnapPoint(leg.transform.position, out Vector3 snapPoint, out _))
+        if(breadboardManager.TryGetSnapPoint(leg.transform.position, out Vector3 snapPoint, out _, out _))
         {
             snapVisualizer.Show(snapPoint);
         }

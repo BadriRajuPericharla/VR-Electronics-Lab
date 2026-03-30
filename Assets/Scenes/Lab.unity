@@ -97,7 +97,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: acb94797e2346a049803b8859478083f, type: 2}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: cb42b4a980859eb4b8448370ab07aae3, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 31e976f67e1e8f64cb6832ae42b52bf4, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3782,7 +3782,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5fabe3dacfc5d684d8c65e8135de726a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9989785
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5fabe3dacfc5d684d8c65e8135de726a, type: 3}
       propertyPath: m_LocalRotation.x
@@ -3790,7 +3790,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5fabe3dacfc5d684d8c65e8135de726a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.04518863
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5fabe3dacfc5d684d8c65e8135de726a, type: 3}
       propertyPath: m_LocalRotation.z
@@ -3802,7 +3802,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5fabe3dacfc5d684d8c65e8135de726a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 5.18
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5fabe3dacfc5d684d8c65e8135de726a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -4641,7 +4641,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5543820390092526526, guid: 0f14a92e259be974ca4a53e6b01143e4, type: 3}
       propertyPath: showGizmos
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5543820390092526526, guid: 0f14a92e259be974ca4a53e6b01143e4, type: 3}
       propertyPath: topPowerRail.snapRange

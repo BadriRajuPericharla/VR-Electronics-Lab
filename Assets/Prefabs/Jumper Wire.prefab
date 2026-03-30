@@ -276,6 +276,7 @@ MonoBehaviour:
       m_Center: {x: 0, y: 0, z: 0}
       m_Extent: {x: 0, y: 0, z: 0}
   snapTarget: {fileID: 0}
+  occupiedHoleKey: 
 --- !u!114 &226342816349199064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -994,6 +995,7 @@ MonoBehaviour:
       m_Center: {x: 0, y: 0, z: 0}
       m_Extent: {x: 0, y: 0, z: 0}
   snapTarget: {fileID: 0}
+  occupiedHoleKey: 
 --- !u!114 &7470513650657269272
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -28,7 +28,7 @@ public class SnappableObj : MonoBehaviour
         isGrabbed = false;
         snapVisualizer.Hide();
 
-        if (breadboardManager.TryGetSnapPoint(transform.position, out Vector3 snapPoint, out GridRegion region))
+        if (breadboardManager.TryGetSnapPoint(transform.position, out Vector3 snapPoint, out GridRegion region, out string holeKey))
         {
             transform.position = snapPoint;
             xrGrab.enabled = false;
@@ -41,7 +41,7 @@ public class SnappableObj : MonoBehaviour
     {
         if (!isGrabbed) return;
 
-        if (breadboardManager.TryGetSnapPoint(transform.position, out Vector3 snapPoint, out GridRegion region))
+        if (breadboardManager.TryGetSnapPoint(transform.position, out Vector3 snapPoint, out GridRegion region, out string holeKey))
         {
             snapVisualizer.Show(snapPoint);
         }
