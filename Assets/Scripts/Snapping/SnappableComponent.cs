@@ -18,7 +18,8 @@ public class SnappableComponent : MonoBehaviour
     private CircuitSolver solver;
     private CircuitComponent component;
 
-    private float holdReleaseTime = 10f;
+    private float holdReleaseTime = 2f;
+    private Coroutine holdCoroutine;
     private bool justHoldRleased = false;
 
 
@@ -37,7 +38,10 @@ public class SnappableComponent : MonoBehaviour
     {
         if (isPlaced)
         {
-            StartCoroutine(holdToRelease());
+            xrGrab.trackPosition = false;
+            xrGrab.trackRotation = false;
+
+            holdCoroutine = StartCoroutine(holdToRelease());
         }
     }
 
@@ -53,8 +57,18 @@ public class SnappableComponent : MonoBehaviour
             yield return null;
         }
 
+        UnsnapComponent();
+        
+    }
+
+
+    public void UnsnapComponent()
+    {
         justHoldRleased = true;
         isPlaced = false;
+
+        xrGrab.trackPosition = true;
+        xrGrab.trackRotation = true;
 
 
         foreach (ComponentLeg leg in legs)
@@ -74,8 +88,18 @@ public class SnappableComponent : MonoBehaviour
         }
     }
 
+
+
     private void OnReleased(SelectExitEventArgs args)
     {
+        if(holdCoroutine != null) StopCoroutine(holdCoroutine);
+
+        if (isPlaced)
+        {
+            xrGrab.trackRotation = true;
+            xrGrab.trackPosition = true;
+        }
+
         for(int i = 0; i < legs.Length; i++)
         {
             snapVisualizers[i].Hide();
@@ -123,9 +147,6 @@ public class SnappableComponent : MonoBehaviour
     public bool TrySnapAllLegs()
     {
 
-
-
-
         Vector3[] pendingSnapPoints = new Vector3[legs.Length];
         GridRegion[] pendingRegions = new GridRegion[legs.Length];
         string[] pendingHoleKeys = new string[legs.Length];
@@ -171,13 +192,11 @@ public class SnappableComponent : MonoBehaviour
         {
             if (breadboardManager.TryGetSnapPoint(legs[i].transform.position, out Vector3 snapPoint, out _, out _))
             {
-                Debug.Log($"Leg {i} can snap → showing visualizer");
                 snapCount++;
                 snapPoints[i] = snapPoint;
             }
             else
             {
-                Debug.Log($"Leg {i} cannot snap");
                 snapVisualizers[i].Hide();
             }
         }
