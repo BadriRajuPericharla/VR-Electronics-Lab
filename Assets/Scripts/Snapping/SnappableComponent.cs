@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -144,7 +144,7 @@ public class SnappableComponent : MonoBehaviour
         midPoint += Vector3.up * 0.03f;
         transform.position = midPoint;
         //transform.localRotation = Quaternion.identity;
-
+        
 
         for(int i = 0;i < legs.Length; i++)
         {
@@ -171,16 +171,18 @@ public class SnappableComponent : MonoBehaviour
         {
             if (breadboardManager.TryGetSnapPoint(legs[i].transform.position, out Vector3 snapPoint, out _, out _))
             {
+                Debug.Log($"Leg {i} can snap → showing visualizer");
                 snapCount++;
                 snapPoints[i] = snapPoint;
             }
             else
             {
+                Debug.Log($"Leg {i} cannot snap");
                 snapVisualizers[i].Hide();
             }
         }
 
-        if(snapCount >= 2)
+        if(snapCount >= legs.Length)
         {
             for(int i = 0; i < legs.Length; i++)
             {

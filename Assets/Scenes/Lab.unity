@@ -462,7 +462,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &411858740
 GameObject:
@@ -1144,7 +1144,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &622473835
 PrefabInstance:
@@ -4645,19 +4645,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5543820390092526526, guid: 0f14a92e259be974ca4a53e6b01143e4, type: 3}
       propertyPath: topPowerRail.snapRange
-      value: 0.01
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 5543820390092526526, guid: 0f14a92e259be974ca4a53e6b01143e4, type: 3}
       propertyPath: mainAreaLower.snapRange
-      value: 0.01
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 5543820390092526526, guid: 0f14a92e259be974ca4a53e6b01143e4, type: 3}
       propertyPath: mainAreaUpper.snapRange
-      value: 0.01
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 5543820390092526526, guid: 0f14a92e259be974ca4a53e6b01143e4, type: 3}
       propertyPath: bottomPowerRail.snapRange
-      value: 0.01
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7391038674121913344, guid: 0f14a92e259be974ca4a53e6b01143e4, type: 3}
       propertyPath: m_Name
@@ -4734,7 +4734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3809397050262024729, guid: 5b43c0748f5f1ac4b87483fdcd7154a9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.943
+      value: 2.071
       objectReference: {fileID: 0}
     - target: {fileID: 3809397050262024729, guid: 5b43c0748f5f1ac4b87483fdcd7154a9, type: 3}
       propertyPath: m_LocalPosition.z

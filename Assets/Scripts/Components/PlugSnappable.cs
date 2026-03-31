@@ -72,7 +72,7 @@ public class PlugSnappable : MonoBehaviour
         if (justHoldReleased)
         {
             justHoldReleased = false;
-            yield return null;
+            yield break ;
         }
 
         if(breadboardManager.TryGetSnapPoint(leg.transform.position, out Vector3 snapPoint, out GridRegion gridRegion, out string holeKey))
