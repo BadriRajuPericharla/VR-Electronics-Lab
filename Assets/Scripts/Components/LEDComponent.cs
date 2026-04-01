@@ -16,10 +16,8 @@ public class LEDComponent : CircuitComponent
     public Light glowLight;
     public ParticleSystem blownParticles;
 
-    [Header("Audio")]
-    public AudioSource audioSource;
-    public AudioClip popSound;
-    public AudioClip humSound;
+
+
 
     public enum LEDState {Off, Glowing, Blown};
     public LEDState currentState = LEDState.Off;
@@ -125,7 +123,7 @@ public class LEDComponent : CircuitComponent
             glowLight.enabled = false;
         }
 
-        StopHum();
+        AudioManager.instance.StopLEDHumSound();
     }
 
     private void ApplyGlow()
@@ -144,7 +142,7 @@ public class LEDComponent : CircuitComponent
             glowLight.intensity = 15f;
         }
 
-        PlayHum();
+        AudioManager.instance.PlayLEDHumSound();
     }
 
     private void ApplyBlown()
@@ -159,35 +157,13 @@ public class LEDComponent : CircuitComponent
             bulbMaterial.EnableKeyword("_EMISSION");
             bulbMaterial.SetColor(EmissionColor, Color.white * 5f);
         }
-        StopHum();
+        AudioManager.instance.StopLEDHumSound();
 
-        if(audioSource != null && popSound != null)
-        {
-            audioSource.PlayOneShot(popSound);
-        }
+        AudioManager.instance.PlayLEDBlownSound();
 
 
         Invoke(nameof(ApplyOff), 0.1f);
     }
 
-    private void PlayHum()
-    {
-        if (audioSource == null || humSound == null) return;
-        if (audioSource.isPlaying) return;
-
-
-        audioSource.clip = humSound;
-        audioSource.loop = true;
-        audioSource.Play();
-
-    }
-
-    private void StopHum()
-    {
-        if(audioSource != null && audioSource.isPlaying)
-        {
-            audioSource.Stop();
-        }
-    }
 
 }

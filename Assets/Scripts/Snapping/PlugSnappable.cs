@@ -15,7 +15,8 @@ public class PlugSnappable : MonoBehaviour
     public bool isSnapped = false;
     private XRGrabInteractable xrGrab;
 
-    private float holdReleaseTime = 2f;
+    private float holdReleaseTime = 1.5f;
+    private Coroutine holdCoroutine;
     private bool justHoldReleased = false;
 
     private void Awake()
@@ -29,7 +30,10 @@ public class PlugSnappable : MonoBehaviour
     {
         if (isSnapped)
         {
-            StartCoroutine(HoldToRelease());
+            xrGrab.trackPosition = false;
+            xrGrab.trackRotation = false;
+
+            holdCoroutine = StartCoroutine(HoldToRelease());
         }
     }
 
@@ -45,7 +49,17 @@ public class PlugSnappable : MonoBehaviour
             yield return null;
         }
 
+        UnsnapPlug();
+    }
+
+    private void UnsnapPlug()
+    {
         justHoldReleased = true;
+
+        xrGrab.trackPosition = true;
+        xrGrab.trackRotation = true;
+
+
         isSnapped = false;
         breadboardManager.ReleaseHole(leg.occupiedHoleKey);
         leg.occupiedHoleKey = "";
@@ -61,6 +75,11 @@ public class PlugSnappable : MonoBehaviour
 
     private void OnReleased(SelectExitEventArgs args)
     {
+        if(holdCoroutine != null) StopCoroutine(holdCoroutine);
+
+        xrGrab.trackPosition = true;
+        xrGrab.trackRotation = true;
+
         snapVisualizer.Hide();
         StartCoroutine(TrySnapNextFrame());
     }

@@ -18,7 +18,7 @@ public class SnappableComponent : MonoBehaviour
     private CircuitSolver solver;
     private CircuitComponent component;
 
-    private float holdReleaseTime = 2f;
+    private float holdReleaseTime = 1.5f;
     private Coroutine holdCoroutine;
     private bool justHoldRleased = false;
 
@@ -85,6 +85,7 @@ public class SnappableComponent : MonoBehaviour
         if (component != null)
         {
             solver.UnRegisterComponent(component);
+            AudioManager.instance.PlayDetachSound();
         }
     }
 
@@ -136,6 +137,7 @@ public class SnappableComponent : MonoBehaviour
                 else
                 {
                     solver.RegisterComponent(component);
+                    AudioManager.instance.PlayAttachSound();
                 }
             }
 

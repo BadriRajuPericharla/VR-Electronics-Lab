@@ -67,10 +67,12 @@ public class JumperWireComponent : CircuitComponent
         {
             solver.RegisterComponent(this);
         }
+        AudioManager.instance.PlayAttachSound();
     }
 
     public void OnPlugUnsnapped()
     {
         solver.UnRegisterComponent(this);
+        AudioManager.instance.PlayDetachSound();
     }
 }

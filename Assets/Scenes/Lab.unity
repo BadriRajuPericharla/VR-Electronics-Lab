@@ -474,6 +474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 411858742}
   - component: {fileID: 411858741}
+  - component: {fileID: 411858743}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -592,6 +593,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &411858743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411858740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da438b6902949145925e990f0ae870c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  componentAttachSound: {fileID: 8300000, guid: cabd11cc3ec952848af3616ba9452388, type: 3}
+  componentDetachSound: {fileID: 8300000, guid: 8844bfcb123a0af4da86e8693b82af6d, type: 3}
+  ledPopSound: {fileID: 8300000, guid: c1fb534370e291245bec6604bc27f490, type: 3}
+  ledHumSound: {fileID: 8300000, guid: e73113b186a8eb4408461a5ccc63eb1c, type: 3}
 --- !u!1 &474028252 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 773853689519989575, guid: b3ed8a0a703ebd34a9e44ed3d9f1fcf6, type: 3}
