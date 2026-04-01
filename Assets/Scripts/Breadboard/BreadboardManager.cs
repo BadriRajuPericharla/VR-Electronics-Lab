@@ -74,7 +74,6 @@ public class BreadboardManager : MonoBehaviour
 
                 if (distance <= region.snapRange && !isOccupied)
                 {
-                    Debug.Log($"Compnent can be snapped the distance is {distance}");
                     snapPoint = breadboardRoot.TransformPoint(localHolePos);
                     snapRegion = region;
                     return true;

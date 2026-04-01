@@ -12,6 +12,7 @@ public class SnappableComponent : MonoBehaviour
     public ComponentLeg[] legs;
 
     public bool isPlaced = false;
+    public float componentHeightOffset = 0.03f;
     private XRGrabInteractable xrGrab;
 
 
@@ -20,7 +21,7 @@ public class SnappableComponent : MonoBehaviour
 
     private float holdReleaseTime = 1.5f;
     private Coroutine holdCoroutine;
-    private bool justHoldRleased = false;
+    private bool justHoldReleased = false;
 
 
     private void Awake()
@@ -64,7 +65,7 @@ public class SnappableComponent : MonoBehaviour
 
     public void UnsnapComponent()
     {
-        justHoldRleased = true;
+        justHoldReleased = true;
         isPlaced = false;
 
         xrGrab.trackPosition = true;
@@ -114,9 +115,9 @@ public class SnappableComponent : MonoBehaviour
     {
         yield return null;
 
-        if (justHoldRleased)
+        if (justHoldReleased)
         {
-            justHoldRleased = false;
+            justHoldReleased = false;
             yield break;
         }
 
@@ -164,12 +165,33 @@ public class SnappableComponent : MonoBehaviour
         }
 
         Vector3 midPoint = (pendingSnapPoints[0] + pendingSnapPoints[1]) / 2f;
-        midPoint += Vector3.up * 0.03f;
+        midPoint += Vector3.up * componentHeightOffset;
         transform.position = midPoint;
-        //transform.localRotation = Quaternion.identity;
-        
 
-        for(int i = 0;i < legs.Length; i++)
+
+        //if (legs.Length >= 2)
+        //{
+        //    Vector3 legsDirection = legs[1].transform.position - legs[0].transform.position;
+        //    Vector3 targetsDirection = pendingSnapPoints[1] - pendingSnapPoints[0];
+
+        //    legsDirection.y = 0f;
+        //    targetsDirection.y = 0f;
+
+        //    Debug.Log($"Rotation logic exicuted: {legsDirection.sqrMagnitude > 0.001f && targetsDirection.sqrMagnitude > 0.001f}");
+        //    Debug.Log($"Legs: {legsDirection.sqrMagnitude > 0.001f}, Targets: {targetsDirection.sqrMagnitude > 0.001f}");
+
+        //    if (legsDirection.sqrMagnitude > 0.001f && targetsDirection.sqrMagnitude > 0.001f)
+        //    {
+        //        Quaternion alignRotation = Quaternion.FromToRotation(legsDirection, targetsDirection);
+        //        alignRotation *= transform.rotation * alignRotation;
+
+        //        xrGrab.matchAttachRotation = false;
+        //        transform.rotation = Quaternion.Euler(0f, alignRotation.y, 0f);
+        //    }
+        //}
+
+
+        for (int i = 0;i < legs.Length; i++)
         {
             legs[i].transform.position = pendingSnapPoints[i];
             legs[i].isSnapped = true;
