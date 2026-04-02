@@ -1217,7 +1217,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4592,8 +4592,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 732692253271756792, guid: 96b49a03b15a4d043bffe0add0332418, type: 3}
+      propertyPath: m_MatchAttachPosition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 732692253271756792, guid: 96b49a03b15a4d043bffe0add0332418, type: 3}
       propertyPath: m_MatchAttachRotation
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2738252844160094723, guid: 96b49a03b15a4d043bffe0add0332418, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4785,6 +4789,14 @@ PrefabInstance:
       propertyPath: snapVisualizers.Array.data[1]
       value: 
       objectReference: {fileID: 1349294944}
+    - target: {fileID: 2665109242479018621, guid: 5b43c0748f5f1ac4b87483fdcd7154a9, type: 3}
+      propertyPath: m_MatchAttachPosition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2665109242479018621, guid: 5b43c0748f5f1ac4b87483fdcd7154a9, type: 3}
+      propertyPath: m_MatchAttachRotation
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3809397050262024729, guid: 5b43c0748f5f1ac4b87483fdcd7154a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.61
