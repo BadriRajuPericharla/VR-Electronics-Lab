@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -100,6 +102,7 @@ public class SnappableComponent : MonoBehaviour
         if (component != null)
         {
             solver.UnRegisterComponent(component);
+            TriggerHaptics(0.3f, 0.1f);
             AudioManager.instance.PlayDetachSound();
         }
     }
@@ -164,16 +167,20 @@ public class SnappableComponent : MonoBehaviour
         GridRegion[] pendingRegions = new GridRegion[legs.Length];
         string[] pendingHoleKeys = new string[legs.Length];
 
-        Debug.Log($"[DEBUG] Trying to snap: Leg0={legs[0].transform.position}, Leg1={legs[1].transform.position}");
+        HashSet<string> assignedHoles = new HashSet<string>();
+
 
         //checking and storing the leg data, if even one of them can't snap return false
         for (int i = 0;  i < legs.Length; i++)
         {
             if (!breadboardManager.TryGetSnapPoint(legs[i].transform.position, out pendingSnapPoints[i], out pendingRegions[i], out pendingHoleKeys[i]))
             {
-                Debug.LogWarning("[SnappableComponent] Snap Failed, no valid holes found");
                 return false;
             }
+
+            if(assignedHoles.Contains(pendingHoleKeys[i])) return false;
+
+            assignedHoles.Add(pendingHoleKeys[i]);
         }
 
         Vector3 midPoint = (pendingSnapPoints[0] + pendingSnapPoints[1]) / 2f;
@@ -201,30 +208,60 @@ public class SnappableComponent : MonoBehaviour
         if (isPlaced) return;
         if (!xrGrab.isSelected) return;
 
-        int snapCount = 0;
-        Vector3[] snapPoints = new Vector3[2];
+
+        HashSet<string> targetedHoles = new HashSet<string>();
+
+        Vector3[] snapPoints = new Vector3[legs.Length];
+        bool[] isLegValid = new bool[legs.Length];
+        bool allLegsValid = true;
+
         for(int i = 0; i <legs.Length; i++)
         {
-            if (breadboardManager.TryGetSnapPoint(legs[i].transform.position, out Vector3 snapPoint, out _, out _))
+            if (breadboardManager.TryGetSnapPoint(legs[i].transform.position, out Vector3 snapPoint, out _, out string holekey))
             {
-                snapCount++;
-                snapPoints[i] = snapPoint;
+                if (targetedHoles.Contains(holekey))
+                {
+                    isLegValid[i] = false;
+                    allLegsValid = false;
+                }
+                else
+                {
+                    isLegValid[i] = true;
+                    targetedHoles.Add(holekey);
+                    snapPoints[i] = snapPoint;
+                }
             }
             else
             {
-                snapVisualizers[i].Hide();
+                isLegValid[i] = false;
+                allLegsValid = false;
             }
         }
 
-        if(snapCount >= legs.Length)
-        {
-            for(int i = 0; i < legs.Length; i++)
-            {
-                snapVisualizers[i].Show(snapPoints[i]);
-            }
-        }
+        if (allLegsValid)
+            for(int i = 0;i <legs.Length;i++) snapVisualizers[i].Show(snapPoints[i]);
+        else
+            for (int i = 0; i < legs.Length; i++) snapVisualizers[i].Hide();
+
+
+
+
 
     }
 
+
+    private void TriggerHaptics(float a, float d)
+    {
+        float amplitude = a;
+        float duration = d;
+
+        foreach(var interactor in xrGrab.interactorsSelecting)
+        {
+            if(interactor is XRBaseControllerInteractor controllerInteractor && controllerInteractor.xrController != null)
+            {
+                controllerInteractor.xrController.SendHapticImpulse(amplitude, duration);
+            }
+        }
+    }
 
 }
