@@ -59,7 +59,7 @@ public class PlugSnappable : MonoBehaviour
         xrGrab.trackPosition = true;
         xrGrab.trackRotation = true;
 
-        leg.snapTarget.isOccupied = false;
+        if(leg.snapTarget.isOccupied) leg.snapTarget.isOccupied = false;
         isSnapped = false;
         breadboardManager.ReleaseHole(leg.occupiedHoleKey);
         leg.occupiedHoleKey = "";

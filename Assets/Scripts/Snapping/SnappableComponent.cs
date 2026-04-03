@@ -23,6 +23,8 @@ public class SnappableComponent : MonoBehaviour
     private Coroutine holdCoroutine;
     private bool justHoldReleased = false;
 
+    private Vector3[] legsOriginalLocalPositions;
+
 
     private void Awake()
     {
@@ -33,10 +35,21 @@ public class SnappableComponent : MonoBehaviour
 
         xrGrab.selectEntered.AddListener(OnGrabbed);
         xrGrab.selectExited.AddListener(OnReleased);
+        legsOriginalLocalPositions = new Vector3[legs.Length];
+
+        for(int i = 0; i < legs.Length; i++)
+        {
+            legsOriginalLocalPositions[i] = legs[i].transform.localPosition;
+        }
     }
 
     private void OnGrabbed(SelectEnterEventArgs args)
     {
+        if (!isPlaced)
+        {
+            justHoldReleased = false;
+        }
+
         if (isPlaced)
         {
             xrGrab.trackPosition = false;
@@ -72,15 +85,16 @@ public class SnappableComponent : MonoBehaviour
         xrGrab.trackRotation = true;
 
 
-        foreach (ComponentLeg leg in legs)
+        for(int i = 0; i < legs.Length; i++)
         {
-            if (leg.occupiedHoleKey != "")
+            if (legs[i].occupiedHoleKey != "")
             {
-                breadboardManager.ReleaseHole(leg.occupiedHoleKey);
-                leg.occupiedHoleKey = "";
+                breadboardManager.ReleaseHole(legs[i].occupiedHoleKey);
+                legs[i].occupiedHoleKey = "";
             }
 
-            leg.ClearSnap();
+            legs[i].transform.localPosition = legsOriginalLocalPositions[i];
+            legs[i].ClearSnap();
         }
 
         if (component != null)
@@ -121,7 +135,6 @@ public class SnappableComponent : MonoBehaviour
             yield break;
         }
 
-
         if (TrySnapAllLegs())
         {
             isPlaced = true;
@@ -151,12 +164,14 @@ public class SnappableComponent : MonoBehaviour
         GridRegion[] pendingRegions = new GridRegion[legs.Length];
         string[] pendingHoleKeys = new string[legs.Length];
 
+        Debug.Log($"[DEBUG] Trying to snap: Leg0={legs[0].transform.position}, Leg1={legs[1].transform.position}");
 
         //checking and storing the leg data, if even one of them can't snap return false
         for (int i = 0;  i < legs.Length; i++)
         {
             if (!breadboardManager.TryGetSnapPoint(legs[i].transform.position, out pendingSnapPoints[i], out pendingRegions[i], out pendingHoleKeys[i]))
             {
+                Debug.LogWarning("[SnappableComponent] Snap Failed, no valid holes found");
                 return false;
             }
         }
@@ -164,6 +179,8 @@ public class SnappableComponent : MonoBehaviour
         Vector3 midPoint = (pendingSnapPoints[0] + pendingSnapPoints[1]) / 2f;
         midPoint += Vector3.up * componentHeightOffset;
         transform.position = midPoint;
+
+        
 
 
         for (int i = 0;i < legs.Length; i++)
