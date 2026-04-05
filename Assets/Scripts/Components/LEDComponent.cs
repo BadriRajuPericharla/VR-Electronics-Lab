@@ -88,6 +88,11 @@ public class LEDComponent : CircuitComponent
         ApplyOff();
     }
 
+    public override void SetValue(float value)
+    {
+        forwardVoltage = value;
+    }
+
     private void SetState(LEDState newState)
     {
         if (currentState == LEDState.Blown) return;

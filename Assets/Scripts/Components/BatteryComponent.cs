@@ -41,6 +41,19 @@ public class BatteryComponent : CircuitComponent
         }
         
     }
+    public void OnPlaced()
+    {
+        isPowerOn = true;
+        //ApplyVisuals();
+        
+        foreach(ComponentLeg leg in legs)
+        {
+            leg.isSnapped = true;
+            leg.snapTarget = leg.GetComponent<SnapTarget>();
+        }
+
+        solver.RegisterComponent(this);
+    }
 
     //private void ApplyVisuals()
     //{
@@ -66,17 +79,9 @@ public class BatteryComponent : CircuitComponent
         //ApplyVisuals();
     }
 
-    public void OnPlaced()
+    public override void SetValue(float value)
     {
-        isPowerOn = true;
-        //ApplyVisuals();
-        
-        foreach(ComponentLeg leg in legs)
-        {
-            leg.isSnapped = true;
-            leg.snapTarget = leg.GetComponent<SnapTarget>();
-        }
-
-        solver.RegisterComponent(this);
+        solver.supplyVoltage = value;
     }
+
 }

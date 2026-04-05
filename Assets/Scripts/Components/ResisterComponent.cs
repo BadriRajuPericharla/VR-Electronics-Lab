@@ -52,4 +52,9 @@ public class ResisterComponent : CircuitComponent
     {
         //no reset required
     }
+
+    public override void SetValue(float value)
+    {
+        resistance = value;
+    }
 }

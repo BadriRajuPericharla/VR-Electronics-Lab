@@ -61,6 +61,11 @@ public class JumperWireComponent : CircuitComponent
         //no reset needed
     }
 
+    public override void SetValue(float value)
+    {
+        
+    }
+
     public void OnPlugSnapped()
     {
         if(plugA.isSnapped && plugB.isSnapped)
@@ -75,4 +80,6 @@ public class JumperWireComponent : CircuitComponent
         solver.UnRegisterComponent(this);
         AudioManager.instance.PlayDetachSound();
     }
+
+
 }

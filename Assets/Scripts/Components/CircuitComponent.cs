@@ -9,6 +9,7 @@ public abstract class CircuitComponent : MonoBehaviour
     public abstract void Simulate(CircuitSolver solver);
     public abstract void Stamp(float[,] G, float[] I, List<Node> unknownNodes);
     public abstract void ResetState();
+    public abstract void SetValue(float value);
 
     public bool IsFullyConnected()
     {
@@ -30,4 +31,6 @@ public abstract class CircuitComponent : MonoBehaviour
 
         return legs[legA].node.voltage - legs[legB].node.voltage;
     }
+
+
 }
