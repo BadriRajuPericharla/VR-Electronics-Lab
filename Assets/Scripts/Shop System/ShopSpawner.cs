@@ -18,7 +18,6 @@ public class ShopSpawner : MonoBehaviour
 
         GameObject spawned = InstantiateAtHand(prefab);
         ApplyValue(spawned, value);
-        ForceGrab(spawned);
     }
 
 
@@ -40,27 +39,5 @@ public class ShopSpawner : MonoBehaviour
         CircuitComponent comp = prefab.GetComponent<CircuitComponent>();
         comp.SetValue(value);
     }
-
-    private void ForceGrab(GameObject prefab)
-    {
-        if (rightHandInteracter == null)
-        {
-            Debug.LogWarning("No RightHand interactor assigned");
-            return;
-        }
-
-        var interactable = prefab.GetComponent<XRGrabInteractable>();
-
-        if (interactable == null)
-        {
-            Debug.LogWarning("Spawned Obj has no XRGrabInteractable");
-            return;
-        }
-
-        rightHandInteracter.StartManualInteraction(interactable as IXRSelectInteractable);
-
-
-    }
-
 
 }

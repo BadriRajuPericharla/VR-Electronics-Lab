@@ -12,6 +12,7 @@ public class ShopUI : MonoBehaviour
 
     [SerializeField] private GameObject shopPanel;
     [SerializeField] private GameObject valuePanel;
+    [SerializeField] private GameObject componentPanel;
 
     [SerializeField] private Transform categoryBtnContainer;
     [SerializeField] private Transform componentBtnContainer;
@@ -40,10 +41,13 @@ public class ShopUI : MonoBehaviour
     {
         shopPanel.SetActive(false);
         valuePanel.SetActive(false);
+        componentPanel.SetActive(false);
         confirmBtn.gameObject.SetActive(false);
 
         shopInputHandler.onShopToggleRequested.AddListener(ToggleShop);
         confirmBtn.onClick.AddListener(OnConfirmPressed);
+
+        BuildCategoryBtns();
     }
 
     private void OnDestroy()
@@ -53,6 +57,7 @@ public class ShopUI : MonoBehaviour
 
     private void ToggleShop()
     {
+        //Debug.Log("Shop is Toggle");
         _isOpen = !_isOpen;
         shopPanel.SetActive(_isOpen);
 
@@ -81,7 +86,9 @@ public class ShopUI : MonoBehaviour
         ClearContainer(componentBtnContainer);
         ResetSelectionState();
 
-        foreach(ComponentEntrySO comp in allComponents)
+        componentPanel.SetActive(true);
+
+        foreach (ComponentEntrySO comp in allComponents)
         {
             if (comp.category != category) continue;
 
@@ -123,9 +130,10 @@ public class ShopUI : MonoBehaviour
 
         for(int i = 0; i < comp.valueLabels.Count; i++)
         {
+            int valueIndex = i;
             Button btn = Instantiate(valueBtnPrefab, valueBtnContainer);
             btn.GetComponentInChildren<TextMeshProUGUI>().text = comp.valueLabels[i];
-            btn.onClick.AddListener(() => OnvalueSelected(i));
+            btn.onClick.AddListener(() => OnvalueSelected(valueIndex));
         }
     }
 
@@ -182,6 +190,7 @@ public class ShopUI : MonoBehaviour
         _selectedComponent = null;
         _selectedIndex = -1;
         valuePanel.SetActive(false);
+        componentPanel.SetActive(false);
         confirmBtn.gameObject.SetActive(false);
         ClearContainer(componentBtnContainer);
     }

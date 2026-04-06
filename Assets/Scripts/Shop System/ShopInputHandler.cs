@@ -32,6 +32,13 @@ public class ShopInputHandler : MonoBehaviour
 
         HandleControlerInput();
         HandlePalmGesture();
+        HandleKeyboardInput();
+    }
+
+    private void HandleKeyboardInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab)) 
+            RequestToggle();
     }
 
     private void TryGetRightHandDevice()
@@ -87,6 +94,7 @@ public class ShopInputHandler : MonoBehaviour
     private void RequestToggle()
     {
         _lastToggleTime = Time.time;
+        //Debug.Log("[ShopInputInputHandler] Request toggle is called");
         onShopToggleRequested?.Invoke();
     }
 

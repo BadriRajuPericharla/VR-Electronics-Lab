@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d73f3a6e309d30d4a9e04249963b91d0, type: 3}
   m_Name: JumperWire
   m_EditorClassIdentifier: 
-  componentName: 
-  category: 0
-  icon: {fileID: 0}
-  prefab: {fileID: 0}
+  componentName: Jumper Wire
+  category: 3
+  icon: {fileID: 21300000, guid: c50f042c1f66568458ad7a9e9af9dfd6, type: 3}
+  prefab: {fileID: 3124867340883921356, guid: 58b3725b0aa8d5e41bd321bb1663b87d, type: 3}
   valueLabels: []
   values: []

@@ -30,6 +30,10 @@ public class SnappableComponent : MonoBehaviour
 
     private void Awake()
     {
+        if (breadboardManager == null) breadboardManager = FindAnyObjectByType<BreadboardManager>();
+
+        snapVisualizers = FindObjectsByType<SnapVisualizer>(FindObjectsSortMode.None);
+
         solver = FindAnyObjectByType<CircuitSolver>();
         component = GetComponent<CircuitComponent>();    
 
