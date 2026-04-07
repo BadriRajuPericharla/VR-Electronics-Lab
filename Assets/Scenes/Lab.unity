@@ -8408,9 +8408,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2497606338919605949, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4195602565661099513, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
       propertyPath: m_Name
       value: L_E_D
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195602565661099513, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4272077210023618518, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8452,6 +8460,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5903135940766738760, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 574091393114875146, guid: 53a0e8e939d8ddd489d7e244941c9405, type: 3}
+    - target: {fileID: 6962319827253678900, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7666446107733725586, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
       propertyPath: breadboardManager
       value: 
@@ -8464,6 +8480,26 @@ PrefabInstance:
       propertyPath: snapVisualizers.Array.data[1]
       value: 
       objectReference: {fileID: 1349294944}
+    - target: {fileID: 7890321906739156931, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7993181970761683649, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8683032140103404574, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8683032140103404574, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8983836600007845598, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
