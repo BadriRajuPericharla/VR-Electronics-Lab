@@ -8408,6 +8408,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 953980139755854901, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 2572053794852042256, guid: 53a0e8e939d8ddd489d7e244941c9405, type: 3}
     - target: {fileID: 2497606338919605949, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -8464,6 +8468,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 574091393114875146, guid: 53a0e8e939d8ddd489d7e244941c9405, type: 3}
+    - target: {fileID: 6246891066700669037, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6962319827253678900, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
       propertyPath: m_Enabled
       value: 1
