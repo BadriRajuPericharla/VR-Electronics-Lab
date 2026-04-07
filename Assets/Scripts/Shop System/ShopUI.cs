@@ -94,7 +94,7 @@ public class ShopUI : MonoBehaviour
 
             Button btn = Instantiate(componentBtnPreab, componentBtnContainer);
 
-            Image icon = btn.GetComponent<Image>();
+            Image icon = btn.transform.Find("Icon").gameObject.GetComponent<Image>();
 
             if(icon != null && comp.icon != null)
             {

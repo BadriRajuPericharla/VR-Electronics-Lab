@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   componentName: LED
   category: 2
-  icon: {fileID: 21300000, guid: c50f042c1f66568458ad7a9e9af9dfd6, type: 3}
-  prefab: {fileID: 3263960571278379193, guid: 96b49a03b15a4d043bffe0add0332418, type: 3}
+  icon: {fileID: 21300000, guid: d1ad9fb02fd56f441ba0302ad715e15d, type: 3}
+  prefab: {fileID: 4195602565661099513, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
   valueLabels:
   - 2v
   - 3v
