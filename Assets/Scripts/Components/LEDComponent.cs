@@ -42,10 +42,10 @@ public class LEDComponent : CircuitComponent
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            SetState(LEDState.Blown);
-        }
+        //if(Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    SetState(LEDState.Blown);
+        //}
     }
 
     public override void Simulate(CircuitSolver solver)
