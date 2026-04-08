@@ -14,7 +14,11 @@ public class LEDComponent : CircuitComponent
     public MeshRenderer bulbRender;
     public Material bulbMaterial;
     public Light glowLight;
-    public ParticleSystem blownParticles;
+    public ParticleSystem[] blownParticles;
+
+    public Mesh ledTopPartBrokenMesh;
+    public Mesh ledBottomBrokenPartMesh;
+    public Material blownMaterial;
 
 
 
@@ -34,6 +38,14 @@ public class LEDComponent : CircuitComponent
 
         currentState = LEDState.Off;
         ledResistance = forwardVoltage / maxSafeCurrent;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            SetState(LEDState.Blown);
+        }
     }
 
     public override void Simulate(CircuitSolver solver)
@@ -154,16 +166,24 @@ public class LEDComponent : CircuitComponent
     {
         if(blownParticles != null)
         {
-            blownParticles.Play();
+            blownParticles[0].Play();
+            blownParticles[1].Play();
         }
 
-        if (bulbMaterial != null)
+        MeshFilter topMeshFilter = transform.Find("Exposy_Case").GetComponent<MeshFilter>();
+        MeshFilter bottomMeshFilter = transform.Find("Flat_Spot").GetComponent<MeshFilter>();
+        MeshRenderer mr = transform.Find("Exposy_Case").GetComponent<MeshRenderer>();
+        MeshRenderer mr2 = transform.Find("Flat_Spot").GetComponent<MeshRenderer>();
+
+        if (topMeshFilter != null && bottomMeshFilter != null)
         {
-            bulbMaterial.EnableKeyword("_EMISSION");
-            bulbMaterial.SetColor(EmissionColor, Color.white * 5f);
+            topMeshFilter.mesh = ledTopPartBrokenMesh;
+            bottomMeshFilter.mesh = ledBottomBrokenPartMesh;
+            mr.material = blownMaterial;
+            mr2.material = blownMaterial;
         }
-        AudioManager.instance.StopLEDHumSound();
 
+        AudioManager.instance.StopLEDHumSound();
         AudioManager.instance.PlayLEDBlownSound();
 
 
