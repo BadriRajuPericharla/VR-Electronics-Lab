@@ -37,7 +37,7 @@ public class ShopInputHandler : MonoBehaviour
 
     private void HandleKeyboardInput()
     {
-        if (Input.GetKeyDown(KeyCode.Tab)) 
+        if (Input.GetKeyDown(KeyCode.Space)) 
             RequestToggle();
     }
 
