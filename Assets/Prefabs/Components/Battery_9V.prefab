@@ -79,6 +79,7 @@ MonoBehaviour:
       m_Center: {x: 0, y: 0, z: 0}
       m_Extent: {x: 0, y: 0, z: 0}
   snapTarget: {fileID: 0}
+  occupiedHoleKey: 
 --- !u!1 &4305077953838990538
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,6 +159,7 @@ MonoBehaviour:
       m_Center: {x: 0, y: 0, z: 0}
       m_Extent: {x: 0, y: 0, z: 0}
   snapTarget: {fileID: 0}
+  occupiedHoleKey: 
 --- !u!1001 &1545121189833584252
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -180,7 +182,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3f4e70d3dd4317c4b8078a5b488461a9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.861
+      value: -2.1829998
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3f4e70d3dd4317c4b8078a5b488461a9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -188,7 +190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3f4e70d3dd4317c4b8078a5b488461a9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.071
+      value: -1.239
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3f4e70d3dd4317c4b8078a5b488461a9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -225,6 +227,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 3f4e70d3dd4317c4b8078a5b488461a9, type: 3}
       propertyPath: m_Name
       value: Battery_9V
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3f4e70d3dd4317c4b8078a5b488461a9, type: 3}
+      propertyPath: m_TagString
+      value: Component
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
