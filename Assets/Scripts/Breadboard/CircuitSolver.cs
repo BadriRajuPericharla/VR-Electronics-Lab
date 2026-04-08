@@ -233,8 +233,9 @@ public class CircuitSolver : MonoBehaviour
                 {
                     Debug.Log($"resistorInPath: {resistorInPath}");
 
-                    if(resistorInPath)
-                        return true;
+                    //if(resistorInPath)
+                    //    return true;
+                    return true;
                 }
                 
             }
