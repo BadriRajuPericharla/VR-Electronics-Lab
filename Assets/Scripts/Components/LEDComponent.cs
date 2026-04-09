@@ -42,10 +42,10 @@ public class LEDComponent : CircuitComponent
 
     private void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    SetState(LEDState.Blown);
-        //}
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            SetState(LEDState.Blown);
+        }
     }
 
     public override void UpdateState(float deltaTime, Dictionary<string, Node> nodeMap)
@@ -171,8 +171,8 @@ public class LEDComponent : CircuitComponent
     {
         if(blownParticles != null)
         {
-            blownParticles[0].Play();
-            blownParticles[1].Play();
+            foreach(ParticleSystem effect in blownParticles)
+                effect.Play();
         }
 
         MeshFilter topMeshFilter = transform.Find("Exposy_Case").GetComponent<MeshFilter>();

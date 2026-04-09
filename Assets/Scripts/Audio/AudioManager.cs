@@ -50,7 +50,7 @@ public class AudioManager : MonoBehaviour
 
     public void StopLEDHumSound()
     {
-        if (audioSource == null && audioSource.clip != ledHumSound) return;
+        if (audioSource == null || audioSource.clip != ledHumSound) return;
 
         if(audioSource.isPlaying) audioSource.Stop();
     }
