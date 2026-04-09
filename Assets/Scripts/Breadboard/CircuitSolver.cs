@@ -116,6 +116,7 @@ public class CircuitSolver : MonoBehaviour
         if (!components.Contains(comp))
         {
             components.Add(comp);
+            RefreshDynamicFlag();
             Solve();
         }
 
@@ -131,7 +132,24 @@ public class CircuitSolver : MonoBehaviour
         }
 
         comp.ResetState();
+        RefreshDynamicFlag();
+
         Solve();
+    }
+
+    private void RefreshDynamicFlag()
+    {
+        hasDynamicComponents = false;
+
+        foreach (CircuitComponent comp in components)
+        {
+            if(comp is CapacitorComponent)
+            {
+                hasDynamicComponents = true;
+                return;
+            }
+
+        }
     }
 
     private string GetKeyNode(ComponentLeg leg)

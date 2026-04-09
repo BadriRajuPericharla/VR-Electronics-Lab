@@ -14,20 +14,7 @@ public class CapacitorComponent : CircuitComponent
 
     private void Start()
     {
-        solver = GetComponent<CircuitSolver>();
-    }
-
-    public void OnSnapped()
-    {
-        solver.SetHasDynamicComponents(true);
-        solver.RegisterComponent(this);
-    }
-
-    public void OnUnsnapped()
-    {
-        solver.UnRegisterComponent(this);
-
-        solver.SetHasDynamicComponents(false);
+        solver = FindAnyObjectByType<CircuitSolver>();
     }
 
 
