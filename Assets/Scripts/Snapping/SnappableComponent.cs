@@ -106,7 +106,7 @@ public class SnappableComponent : MonoBehaviour
         if (component != null)
         {
             solver.UnRegisterComponent(component);
-            TriggerHaptics(0.3f, 0.1f);
+            HapticController.instance.TriggerHaptics(0.3f, 0.1f, xrGrab);
             AudioManager.instance.PlayDetachSound();
         }
     }
@@ -247,25 +247,6 @@ public class SnappableComponent : MonoBehaviour
         else
             for (int i = 0; i < legs.Length; i++) snapVisualizers[i].Hide();
 
-
-
-
-
-    }
-
-
-    private void TriggerHaptics(float a, float d)
-    {
-        float amplitude = a;
-        float duration = d;
-
-        foreach(var interactor in xrGrab.interactorsSelecting)
-        {
-            if(interactor is XRBaseControllerInteractor controllerInteractor && controllerInteractor.xrController != null)
-            {
-                controllerInteractor.xrController.SendHapticImpulse(amplitude, duration);
-            }
-        }
     }
 
 }
