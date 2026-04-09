@@ -8402,6 +8402,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2095135708}
   m_CullTransparentMesh: 1
+--- !u!1001 &1663238326264578616
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 94013491214671805, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
+      propertyPath: m_Name
+      value: Capacitor
+      objectReference: {fileID: 0}
+    - target: {fileID: 320303348576037798, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
+      propertyPath: breadboardManager
+      value: 
+      objectReference: {fileID: 552354697}
+    - target: {fileID: 320303348576037798, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
+      propertyPath: snapVisualizers.Array.data[0]
+      value: 
+      objectReference: {fileID: 480142075}
+    - target: {fileID: 320303348576037798, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
+      propertyPath: snapVisualizers.Array.data[1]
+      value: 
+      objectReference: {fileID: 1349294944}
+    - target: {fileID: 722212465479353607, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.623
+      objectReference: {fileID: 0}
+    - target: {fileID: 722212465479353607, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.993
+      objectReference: {fileID: 0}
+    - target: {fileID: 722212465479353607, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.428
+      objectReference: {fileID: 0}
+    - target: {fileID: 722212465479353607, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 722212465479353607, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 722212465479353607, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 722212465479353607, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 722212465479353607, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 722212465479353607, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 722212465479353607, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
 --- !u!1001 &4450570075427835457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8629,6 +8698,10 @@ PrefabInstance:
       propertyPath: snapVisualizers.Array.data[1]
       value: 
       objectReference: {fileID: 1349294944}
+    - target: {fileID: 994397607943702344, guid: 5b43c0748f5f1ac4b87483fdcd7154a9, type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3809397050262024729, guid: 5b43c0748f5f1ac4b87483fdcd7154a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.61
@@ -9027,6 +9100,7 @@ SceneRoots:
   - {fileID: 6978176986043706943}
   - {fileID: 7396177707513730218}
   - {fileID: 4450570075427835457}
+  - {fileID: 1663238326264578616}
   - {fileID: 1898711104}
   - {fileID: 1023050884}
   - {fileID: 411858742}
