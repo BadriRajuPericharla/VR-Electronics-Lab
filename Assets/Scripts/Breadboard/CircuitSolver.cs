@@ -9,6 +9,12 @@ public class CircuitSolver : MonoBehaviour
     [Header("Voltage")]
     public float supplyVoltage = 5f;
 
+
+    private float simulationStepRate = 50f; //solves per second
+    private float simulationTimer = 0f;
+    private bool hasDynamicComponents = false;
+
+
     private Dictionary<string, Node> nodeMap = new Dictionary<string, Node>();
     private List<CircuitComponent> components = new List<CircuitComponent>();
     
@@ -16,7 +22,33 @@ public class CircuitSolver : MonoBehaviour
 
     int nextNodeId;
 
+    private void Update()
+    {
+        if(!hasDynamicComponents) return;
+
+        float stepInterval = 1f /simulationStepRate;
+        simulationTimer += Time.deltaTime;
+
+        if(simulationTimer >= stepInterval)
+        {
+            simulationTimer = 0f;
+            SolveStep(stepInterval);
+        }
+    }
+
+
     public void Solve()
+    {
+        if (hasDynamicComponents) return;
+        SolveStep(0f);
+    }
+
+    public void SetHasDynamicComponents(bool value)
+    {
+        hasDynamicComponents = value;
+    }
+
+    private void SolveStep(float deltaTime)
     {
         nodeMap.Clear();
         nextNodeId = 0;
@@ -55,7 +87,13 @@ public class CircuitSolver : MonoBehaviour
 
         if (IsCircuitValid())
         {
-            SolveNodalAnalysis();
+            SolveNodalAnalysis(deltaTime);
+
+            foreach(CircuitComponent comp in components)
+            {
+                comp.UpdateState(deltaTime, nodeMap);
+            }
+
             foreach (CircuitComponent comp in components)
             {
                 comp.Simulate(this);
@@ -153,7 +191,7 @@ public class CircuitSolver : MonoBehaviour
         }
     }
 
-    public void SolveNodalAnalysis()
+    public void SolveNodalAnalysis( float deltaTime)
     {
         //pre-step for LED
         foreach (CircuitComponent comp in components)
@@ -205,7 +243,7 @@ public class CircuitSolver : MonoBehaviour
         //step 3: Stamp the components
         foreach (CircuitComponent comp in components)
         {
-            comp.Stamp(G, I, unknownNodes);
+            comp.Stamp(G, I, unknownNodes, deltaTime);
         }
 
         
@@ -290,9 +328,9 @@ public class CircuitSolver : MonoBehaviour
         return false;
     }
 
-    //This is matrix solving function, copy pasted from claude., basic idea is
+    //This is matrix solving function, copy pasted from claude, basic idea is
     //1. take one equation
-    //2. get factor by deviding one quotient(factor is 2/1.2 or 3.2/4  0.5 + 2B + 3.2C = 4 | 3 + 1.2B + 4C = 1 ) this goes on until one unknown is remaining in the equation
+    //2. get factor by dividing one quotient(factor is 2/1.2 or 3.2/4  0.5 + 2B + 3.2C = 4 | 3 + 1.2B + 4C = 1 ) this goes on until one unknown is remaining in the equation
     //3. now multiply that factor with one equation to remove that variable, this goes on until one equation is left
     //4. substitute the value got by solving
     //5. add to the list

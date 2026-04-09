@@ -7,7 +7,7 @@ public class TriggerRemoveComp : MonoBehaviour
 {
     private Color originalColor;
     private MeshRenderer compMR;
-    private bool isHovering = false;
+
 
     private void OnTriggerEnter(Collider other)
     {

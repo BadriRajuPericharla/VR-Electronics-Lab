@@ -32,7 +32,7 @@ public class ResisterComponent : CircuitComponent
 
     }
 
-    public override void Stamp(float[,] G, float[] I, List<Node> unknownNodes)
+    public override void Stamp(float[,] G, float[] I, List<Node> unknownNodes, float deltaTime)
     {
         Node nodeA = legs[0].node;
         Node nodeB = legs[1].node;
@@ -68,6 +68,10 @@ public class ResisterComponent : CircuitComponent
     public override void ResetState()
     {
         //no reset required
+    }
+    public override void UpdateState(float deltaTime, Dictionary<string, Node> nodeMap)
+    {
+        //no need to update
     }
 
     public override void SetValue(float value)

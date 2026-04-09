@@ -48,6 +48,11 @@ public class LEDComponent : CircuitComponent
         //}
     }
 
+    public override void UpdateState(float deltaTime, Dictionary<string, Node> nodeMap)
+    {
+        //no need to update
+    }
+
     public override void Simulate(CircuitSolver solver)
     {
         if (currentState == LEDState.Blown) return;
@@ -89,7 +94,7 @@ public class LEDComponent : CircuitComponent
         }
     }
 
-    public override void Stamp(float[,] G, float[] I, List<Node> unknownNodes)
+    public override void Stamp(float[,] G, float[] I, List<Node> unknownNodes, float deltaTime)
     {
         //
     }

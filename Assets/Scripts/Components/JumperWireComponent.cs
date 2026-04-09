@@ -24,7 +24,7 @@ public class JumperWireComponent : CircuitComponent
         float current = GetVoltageDrop(0, 1) / wireResistance;
     }
 
-    public override void Stamp(float[,] G, float[] I, List<Node> unknownNodes)
+    public override void Stamp(float[,] G, float[] I, List<Node> unknownNodes, float deltaTime)
     {
         //Node nodeA = legs[0].node;
         //Node nodeB = legs[1].node; 
@@ -59,6 +59,10 @@ public class JumperWireComponent : CircuitComponent
     public override void ResetState()
     {
         //no reset needed
+    }
+    public override void UpdateState(float deltaTime, Dictionary<string, Node> nodeMap)
+    {
+        //no need to update
     }
 
     public override void SetValue(float value)
