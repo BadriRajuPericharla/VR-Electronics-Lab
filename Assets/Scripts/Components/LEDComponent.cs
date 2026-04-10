@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class LEDComponent : CircuitComponent
@@ -15,6 +16,17 @@ public class LEDComponent : CircuitComponent
     public Material bulbMaterial;
     public Light glowLight;
     public ParticleSystem[] blownParticles;
+
+    [Header("LED Colors")]
+    public Color infraredColor;
+    public Color redColor;
+    public Color orangeColor;
+    public Color yellowColor;
+    public Color greenColor;
+    public Color blueColor;
+    public Color whiteColor;
+    public Color ultraVioletColor;
+
 
     public Mesh ledTopPartBrokenMesh;
     public Mesh ledBottomBrokenPartMesh;
@@ -109,6 +121,57 @@ public class LEDComponent : CircuitComponent
     public override void SetValue(float value)
     {
         forwardVoltage = value;
+        if (forwardVoltage < 2.2f && forwardVoltage < 1.8f)
+            maxSafeCurrent = 0.030f;
+        else if (forwardVoltage < 3.0f && forwardVoltage < 3.6f)
+            maxSafeCurrent = 0.025f;
+        else
+            maxSafeCurrent = 0.050f;
+
+            
+        ledResistance = forwardVoltage / maxSafeCurrent;
+        AssignColorBasedOnVoltage(forwardVoltage);
+    }
+
+    private void AssignColorBasedOnVoltage(float fwdVoltage)
+    {
+        switch(fwdVoltage)
+        {
+            case 1.2f:
+                AssignColor(infraredColor);
+                break;
+            case 2f:
+                AssignColor(redColor);
+                break;
+            case 2.0001f:
+                AssignColor(orangeColor);
+                break;
+            case 2.1f:
+                AssignColor(yellowColor);
+                break;
+            case 3f:
+                AssignColor(greenColor);
+                break;
+            case 3.2f:
+                AssignColor(blueColor);
+                break;
+            case 3.2001f:
+                AssignColor(whiteColor);
+                break;
+            case 3.5f:
+                AssignColor(ultraVioletColor);
+                break;
+        }
+    }
+
+    private void AssignColor(Color color)
+    {
+        Material ledMat = transform.Find("Flat_Spot").GetComponent<Material>();
+        
+        
+        ledMat.color = color;
+        bulbMaterial.SetColor(EmissionColor, color * 2f);
+        glowLight.color = color;
     }
 
     private void SetState(LEDState newState)
@@ -162,7 +225,7 @@ public class LEDComponent : CircuitComponent
         {
             glowLight.enabled = true;
             glowLight.color = ledColor;
-            glowLight.intensity = 15f;
+            glowLight.intensity = 2f;
         }
 
         AudioManager.instance.PlayLEDHumSound();
