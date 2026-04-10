@@ -335,7 +335,7 @@ Transform:
   m_GameObject: {fileID: 12778684}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.889, y: 0.7, z: -2.417}
+  m_LocalPosition: {x: -5.03, y: 0.7, z: -7.42}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2138,7 +2138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4133,9 +4133,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftHandTranform: {fileID: 1791119648}
-  palmUpThreshold: 0.8
-  gestureHoldDuration: 0.6
-  gestureCoolDown: 1
   onShopToggleRequested:
     m_PersistentCalls:
       m_Calls: []
@@ -6728,6 +6725,7 @@ GameObject:
   - component: {fileID: 1802506453}
   - component: {fileID: 1802506456}
   - component: {fileID: 1802506457}
+  - component: {fileID: 1802506458}
   m_Layer: 0
   m_Name: XR Origin (XR Rig)
   m_TagString: Untagged
@@ -6775,7 +6773,7 @@ Transform:
   m_GameObject: {fileID: 1802506452}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -4.38, y: 1, z: 0.36}
+  m_LocalPosition: {x: -4.38, y: 1.012, z: 0.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6838,6 +6836,18 @@ MonoBehaviour:
   m_MotionControllerModeEnded:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1802506458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802506452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689ea223de341da45a8d4149a5faec89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1840386082
 GameObject:
   m_ObjectHideFlags: 0
@@ -8414,10 +8424,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Capacitor
       objectReference: {fileID: 0}
+    - target: {fileID: 94013491214671805, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 320303348576037798, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
       propertyPath: breadboardManager
       value: 
       objectReference: {fileID: 552354697}
+    - target: {fileID: 320303348576037798, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
+      propertyPath: componentHeightOffset
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 320303348576037798, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
       propertyPath: snapVisualizers.Array.data[0]
       value: 
@@ -8617,21 +8635,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3223443817590637133, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
+      propertyPath: m_UseDynamicAttach
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3223443817590637133, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
+      propertyPath: m_MatchAttachPosition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3223443817590637133, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
+      propertyPath: m_MatchAttachRotation
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4195602565661099513, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
       propertyPath: m_Name
       value: L_E_D
       objectReference: {fileID: 0}
     - target: {fileID: 4272077210023618518, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.895
+      value: -1.221
       objectReference: {fileID: 0}
     - target: {fileID: 4272077210023618518, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.0864
+      value: 2.08
       objectReference: {fileID: 0}
     - target: {fileID: 4272077210023618518, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.253
+      value: -0.314
       objectReference: {fileID: 0}
     - target: {fileID: 4272077210023618518, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
       propertyPath: m_LocalRotation.w

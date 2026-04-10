@@ -40,13 +40,13 @@ public class LEDComponent : CircuitComponent
         ledResistance = forwardVoltage / maxSafeCurrent;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            SetState(LEDState.Blown);
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.LeftShift))
+    //    {
+    //        SetState(LEDState.Blown);
+    //    }
+    //}
 
     public override void UpdateState(float deltaTime, Dictionary<string, Node> nodeMap)
     {
@@ -101,6 +101,7 @@ public class LEDComponent : CircuitComponent
 
     public override void ResetState()
     {
+        if (currentState == LEDState.Blown) return;
         currentState = LEDState.Off;
         ApplyOff();
     }

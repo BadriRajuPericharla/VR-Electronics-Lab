@@ -106,7 +106,7 @@ public class SnappableComponent : MonoBehaviour
         if (component != null)
         {
             solver.UnRegisterComponent(component);
-            HapticController.instance.TriggerHaptics(0.3f, 0.1f, xrGrab);
+            HapticController.instance.TriggerHaptics(0.3f, 0.3f, xrGrab);
             AudioManager.instance.PlayDetachSound();
         }
     }

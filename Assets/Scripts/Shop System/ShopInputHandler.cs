@@ -8,17 +8,17 @@ public class ShopInputHandler : MonoBehaviour
     public Transform leftHandTranform;
 
     [Header("Gesture Settings")]
-    [SerializeField] private float palmUpThreshold = 0.8f;
-    [SerializeField] private float gestureHoldDuration = 0.6f;
-    [SerializeField] private float gestureCoolDown = 1f;
+    //[SerializeField] private float palmUpThreshold = 0.8f;
+    //[SerializeField] private float gestureHoldDuration = 0.6f;
+    //[SerializeField] private float gestureCoolDown = 1f;
 
     public UnityEvent onShopToggleRequested;
 
     private InputDevice _rightHandDevice;
     private bool _prevBBtnState = false;
-    private float _gestureHeldTime = 0f;
+    //private float _gestureHeldTime = 0f;
     private float _lastToggleTime = -999f;
-    private bool _gestureTriggeredThisPose = false;
+    //private bool _gestureTriggeredThisPose = false;
 
     private void Start()
     {
@@ -31,7 +31,7 @@ public class ShopInputHandler : MonoBehaviour
             TryGetRightHandDevice();
 
         HandleControlerInput();
-        HandlePalmGesture();
+        //HandlePalmGesture();
         HandleKeyboardInput();
     }
 
@@ -64,31 +64,31 @@ public class ShopInputHandler : MonoBehaviour
     }
 
 
-    private void HandlePalmGesture()
-    {
-        if (leftHandTranform == null) return;
-        if (Time.time - _lastToggleTime < gestureCoolDown) return;
+    //private void HandlePalmGesture()
+    //{
+    //    if (leftHandTranform == null) return;
+    //    if (Time.time - _lastToggleTime < gestureCoolDown) return;
 
-        float palmUpDot = Vector3.Dot(leftHandTranform.transform.up, Vector3.up);
+    //    float palmUpDot = Vector3.Dot(leftHandTranform.transform.up, Vector3.up);
 
-        bool isPalmUp = palmUpDot > palmUpThreshold;
+    //    bool isPalmUp = palmUpDot > palmUpThreshold;
 
-         if (isPalmUp && !_gestureTriggeredThisPose)
-        {
-            _gestureHeldTime += Time.deltaTime;
-            if (_gestureHeldTime >= gestureHoldDuration)
-            {
-                RequestToggle();
-                _gestureTriggeredThisPose = true;
-                _gestureHeldTime = 0f;
-            }
-        }
-        else if (!isPalmUp)
-        {
-            _gestureHeldTime = 0f;
-            _gestureTriggeredThisPose = false;
-        }
-    }
+    //     if (isPalmUp && !_gestureTriggeredThisPose)
+    //    {
+    //        _gestureHeldTime += Time.deltaTime;
+    //        if (_gestureHeldTime >= gestureHoldDuration)
+    //        {
+    //            RequestToggle();
+    //            _gestureTriggeredThisPose = true;
+    //            _gestureHeldTime = 0f;
+    //        }
+    //    }
+    //    else if (!isPalmUp)
+    //    {
+    //        _gestureHeldTime = 0f;
+    //        _gestureTriggeredThisPose = false;
+    //    }
+    //}
 
 
     private void RequestToggle()

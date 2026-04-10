@@ -13,10 +13,8 @@ public class HapticController : MonoBehaviour
         instance = this;
     }
 
-    public void TriggerHaptics(float a, float d, XRGrabInteractable xrGrab)
+    public void TriggerHaptics(float amplitude, float duration, XRGrabInteractable xrGrab)
     {
-        float amplitude = a;
-        float duration = d;
 
         foreach (var interactor in xrGrab.interactorsSelecting)
         {
