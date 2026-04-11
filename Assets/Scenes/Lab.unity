@@ -8426,7 +8426,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 94013491214671805, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 320303348576037798, guid: 27e1fbacb1bdb9f458c8161ae65a25aa, type: 3}
       propertyPath: breadboardManager
@@ -8639,6 +8639,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: L_E_D
       objectReference: {fileID: 0}
+    - target: {fileID: 4195602565661099513, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4272077210023618518, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.221
@@ -8775,6 +8779,10 @@ PrefabInstance:
     - target: {fileID: 4581958263775013027, guid: 5b43c0748f5f1ac4b87483fdcd7154a9, type: 3}
       propertyPath: m_Name
       value: Resistor
+      objectReference: {fileID: 0}
+    - target: {fileID: 4581958263775013027, guid: 5b43c0748f5f1ac4b87483fdcd7154a9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
