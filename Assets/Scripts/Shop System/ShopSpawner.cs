@@ -7,8 +7,8 @@ public class ShopSpawner : MonoBehaviour
 {
     [SerializeField] private Transform rightHandAttachPoint;
     [SerializeField] private XRDirectInteractor rightHandInteracter;
-
-    public void SpawnIntoHand(GameObject prefab, float value)
+                  
+    public void SpawnInFrontOfCam(GameObject prefab, float value)
     {
         if(prefab == null)
         {
@@ -16,20 +16,16 @@ public class ShopSpawner : MonoBehaviour
             return;
         }
 
-        GameObject spawned = InstantiateAtHand(prefab);
+        GameObject spawned = InstantiateInFront(prefab);
         ApplyValue(spawned, value);
     }
 
 
-    private GameObject InstantiateAtHand(GameObject prefab)
+    private GameObject InstantiateInFront(GameObject prefab)
     {
-        Vector3 spawnPos = rightHandAttachPoint != null ?
-                            rightHandAttachPoint.position :
-                            Camera.main.transform.position + Camera.main.transform.forward * 0.3f;
+        Vector3 spawnPos = Camera.main.transform.position + Camera.main.transform.forward * 0.3f;
 
-        Quaternion spawnRot = rightHandAttachPoint != null ?
-                            rightHandAttachPoint.rotation :
-                            Quaternion.identity;
+        Quaternion spawnRot = Quaternion.identity;
 
         return Instantiate(prefab, spawnPos, spawnRot);
     }

@@ -173,7 +173,7 @@ public class ShopUI : MonoBehaviour
         if (_selectedComponent.HasValues && _selectedIndex >= 0)
             value = _selectedComponent.values[_selectedIndex];
 
-        shopSpawner.SpawnIntoHand(_selectedComponent.prefab, value);
+        shopSpawner.SpawnInFrontOfCam(_selectedComponent.prefab, value);
         ToggleShop();
     }
 
