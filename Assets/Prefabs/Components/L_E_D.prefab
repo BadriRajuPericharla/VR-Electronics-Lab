@@ -809,13 +809,22 @@ MonoBehaviour:
   maxSafeCurrent: 0.03
   ledColor: {r: 1, g: 0, b: 0, a: 1}
   bulbRender: {fileID: 8683032140103404574}
-  bulbMaterial: {fileID: 2100000, guid: bf2cda0b68147b540bbc2abb7b01cd68, type: 2}
+  bulbGlowMaterial: {fileID: 2100000, guid: bf2cda0b68147b540bbc2abb7b01cd68, type: 2}
+  ledMat: {fileID: 2100000, guid: 4188027d09e48d34d93166f5616eb8e6, type: 2}
   glowLight: {fileID: 7993181970761683649}
   blownParticles:
   - {fileID: 2233709521738458568}
   - {fileID: 4389908478336185621}
   - {fileID: 9113321697350376171}
   - {fileID: 4030240690882253436}
+  infraredColor: {r: 0.19607843, g: 0, b: 0, a: 1}
+  redColor: {r: 1, g: 0, b: 0, a: 1}
+  orangeColor: {r: 1, g: 0.54901963, b: 0, a: 1}
+  yellowColor: {r: 1, g: 1, b: 0, a: 1}
+  greenColor: {r: 0, g: 1, b: 0, a: 1}
+  blueColor: {r: 0, g: 0, b: 1, a: 1}
+  whiteColor: {r: 1, g: 1, b: 1, a: 1}
+  ultraVioletColor: {r: 0.5411765, g: 0.16862746, b: 0.8862745, a: 1}
   ledTopPartBrokenMesh: {fileID: 2572053794852042256, guid: bd948e5717a1b5e49937552868e522c3, type: 3}
   ledBottomBrokenPartMesh: {fileID: 574091393114875146, guid: bd948e5717a1b5e49937552868e522c3, type: 3}
   blownMaterial: {fileID: 2100000, guid: 2b8c048f2f71d824eba3e32b26e3e33d, type: 2}

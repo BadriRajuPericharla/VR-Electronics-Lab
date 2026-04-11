@@ -13,7 +13,8 @@ public class LEDComponent : CircuitComponent
 
     [Header("Visuals")]
     public MeshRenderer bulbRender;
-    public Material bulbMaterial;
+    public Material bulbGlowMaterial;
+    public Material ledMat;
     public Light glowLight;
     public ParticleSystem[] blownParticles;
 
@@ -43,11 +44,6 @@ public class LEDComponent : CircuitComponent
 
     private void Start()
     {
-        if(bulbRender != null)
-        {
-            bulbMaterial = bulbRender.material;
-        }
-
         currentState = LEDState.Off;
         ledResistance = forwardVoltage / maxSafeCurrent;
     }
@@ -120,10 +116,18 @@ public class LEDComponent : CircuitComponent
 
     public override void SetValue(float value)
     {
+        if (bulbRender != null)
+            bulbGlowMaterial = bulbRender.material;
+
+        if (ledMat != null)
+            ledMat = new Material(ledMat);
+
+
+
         forwardVoltage = value;
-        if (forwardVoltage < 2.2f && forwardVoltage < 1.8f)
+        if (forwardVoltage < 2.2f && forwardVoltage > 1.8f)
             maxSafeCurrent = 0.030f;
-        else if (forwardVoltage < 3.0f && forwardVoltage < 3.6f)
+        else if (forwardVoltage < 3.0f && forwardVoltage > 3.6f)
             maxSafeCurrent = 0.025f;
         else
             maxSafeCurrent = 0.050f;
@@ -166,12 +170,17 @@ public class LEDComponent : CircuitComponent
 
     private void AssignColor(Color color)
     {
-        Material ledMat = transform.Find("Flat_Spot").GetComponent<Material>();
-        
-        
         ledMat.color = color;
-        bulbMaterial.SetColor(EmissionColor, color * 2f);
-        glowLight.color = color;
+        this.ledColor = color;
+
+        MeshRenderer ledTopRenderer = transform.Find("Exposy_Case").GetComponent<MeshRenderer>();
+        MeshRenderer ledBottomRenderer = transform.Find("Flat_Spot").GetComponent<MeshRenderer>();
+
+        if (ledTopRenderer != null && ledBottomRenderer != null)
+        {
+            ledTopRenderer.material = ledMat;
+            ledBottomRenderer.material = ledMat;
+        }
     }
 
     private void SetState(LEDState newState)
@@ -197,11 +206,11 @@ public class LEDComponent : CircuitComponent
 
     private void ApplyOff()
     {
-        if(bulbMaterial != null)
+        if(bulbGlowMaterial != null)
         {
-            bulbMaterial.DisableKeyword("_EMISSION");
-            bulbMaterial.SetColor(EmissionColor, Color.black);
-            bulbMaterial.globalIlluminationFlags = MaterialGlobalIlluminationFlags.EmissiveIsBlack;
+            bulbGlowMaterial.DisableKeyword("_EMISSION");
+            bulbGlowMaterial.SetColor(EmissionColor, Color.black);
+            bulbGlowMaterial.globalIlluminationFlags = MaterialGlobalIlluminationFlags.EmissiveIsBlack;
         }
 
         if(glowLight != null)
@@ -214,11 +223,11 @@ public class LEDComponent : CircuitComponent
 
     private void ApplyGlow()
     {
-        if (bulbMaterial != null)
+        if (bulbGlowMaterial != null)
         {
-            bulbMaterial.EnableKeyword("_EMISSION");
-            bulbMaterial.SetColor(EmissionColor, ledColor * 2f);
-            bulbMaterial.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
+            bulbGlowMaterial.EnableKeyword("_EMISSION");
+            bulbGlowMaterial.SetColor(EmissionColor, ledColor * 2f);
+            bulbGlowMaterial.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
         }
 
         if (glowLight != null)

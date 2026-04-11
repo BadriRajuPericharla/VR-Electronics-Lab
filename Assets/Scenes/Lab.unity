@@ -2138,7 +2138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6801,7 +6801,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.2
+  m_Height: 1.6
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -8635,18 +8635,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3223443817590637133, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
-      propertyPath: m_UseDynamicAttach
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3223443817590637133, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
-      propertyPath: m_MatchAttachPosition
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3223443817590637133, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
-      propertyPath: m_MatchAttachRotation
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4195602565661099513, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
       propertyPath: m_Name
       value: L_E_D
@@ -8691,6 +8679,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4514034326397175550, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
+      propertyPath: ledColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514034326397175550, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
+      propertyPath: ledColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514034326397175550, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
+      propertyPath: ledColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7666446107733725586, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
       propertyPath: breadboardManager
       value: 
@@ -8703,10 +8703,6 @@ PrefabInstance:
       propertyPath: snapVisualizers.Array.data[1]
       value: 
       objectReference: {fileID: 1349294944}
-    - target: {fileID: 7993181970761683649, guid: d02636245348ab44aaaef6e4d4c64e99, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
