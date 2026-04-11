@@ -45,7 +45,6 @@ public class LEDComponent : CircuitComponent
     private void Start()
     {
         currentState = LEDState.Off;
-        ledResistance = forwardVoltage / maxSafeCurrent;
     }
 
     //private void Update()
@@ -92,12 +91,12 @@ public class LEDComponent : CircuitComponent
 
         if (current > maxSafeCurrent)
         {
-            Debug.Log("LED Blown");
+            Debug.Log($"[LED {GetInstanceID()}] Blown");
             SetState(LEDState.Blown);
         }
         else
         {
-            Debug.Log("LED is Glowing");
+            Debug.Log($"[LED {GetInstanceID()}] Glowing");
             SetState(LEDState.Glowing);
         }
     }
@@ -125,9 +124,9 @@ public class LEDComponent : CircuitComponent
 
 
         forwardVoltage = value;
-        if (forwardVoltage < 2.2f && forwardVoltage > 1.8f)
+        if (forwardVoltage <= 2.2f && forwardVoltage >= 1.8f)
             maxSafeCurrent = 0.030f;
-        else if (forwardVoltage < 3.0f && forwardVoltage > 3.6f)
+        else if (forwardVoltage >= 3.0f && forwardVoltage <= 3.6f)
             maxSafeCurrent = 0.025f;
         else
             maxSafeCurrent = 0.050f;
