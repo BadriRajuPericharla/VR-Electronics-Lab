@@ -104,6 +104,7 @@ public class PlugSnappable : MonoBehaviour
             isSnapped = true;
             leg.occupiedHoleKey = holeKey;
             breadboardManager.OccupyHole(holeKey);
+            transform.SetParent(breadboardManager.transform);
             parentWire.OnPlugSnapped();
         }
         else if(snapTargetManager.TryGetSnapPoint(leg.transform.position, out Vector3 snapPoint2, out SnapTarget snapTarget))
@@ -114,7 +115,7 @@ public class PlugSnappable : MonoBehaviour
             leg.snapTarget.isOccupied = true;
             leg.isSnapped = true;
             isSnapped = true;
-
+            transform.SetParent(snapTarget.transform);
             parentWire.OnPlugSnapped();
         }
     }
