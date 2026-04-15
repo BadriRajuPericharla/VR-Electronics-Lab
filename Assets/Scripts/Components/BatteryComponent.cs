@@ -7,8 +7,9 @@ public class BatteryComponent : CircuitComponent
 {
     [Header("Switch")]
     public bool isPowerOn = false;
-    public XRSimpleInteractable simpleInteractable;
 
+
+    public XRSimpleInteractable simpleInteractable;
     public CircuitSolver solver;
 
     //[Header("Light Visuals")]
@@ -85,6 +86,7 @@ public class BatteryComponent : CircuitComponent
 
     public override void SetValue(float value)
     {
+        solver = FindAnyObjectByType<CircuitSolver>();
         solver.supplyVoltage = value;
     }
 

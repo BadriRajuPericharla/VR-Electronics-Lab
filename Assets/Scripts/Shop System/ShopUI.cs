@@ -158,7 +158,8 @@ public class ShopUI : MonoBehaviour
         }
         else
         {
-            valuePanel.SetActive(false);
+            ClearContainer(valueBtnContainer);
+            valuePanel.SetActive(true);
             confirmBtn.gameObject.SetActive(true);
         }
     }
