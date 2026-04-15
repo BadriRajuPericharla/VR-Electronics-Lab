@@ -84,10 +84,24 @@ public class BatteryComponent : CircuitComponent
         //ApplyVisuals();
     }
 
+    private void AssignSnapTargets()
+    {
+        Transform batteryPosLeg = transform.Find("PosLeg");
+        Transform batteryNegLeg = transform.Find("NegLeg");
+        SnapTargetManager snapTargetManager = FindAnyObjectByType<SnapTargetManager>();
+
+
+        snapTargetManager.SnapTargets.Add(batteryPosLeg.GetComponent<SnapTarget>());
+        snapTargetManager.SnapTargets.Add(batteryNegLeg.GetComponent<SnapTarget>());
+    }
+
+
     public override void SetValue(float value)
     {
         solver = FindAnyObjectByType<CircuitSolver>();
         solver.supplyVoltage = value;
+
+        AssignSnapTargets();
     }
 
 }

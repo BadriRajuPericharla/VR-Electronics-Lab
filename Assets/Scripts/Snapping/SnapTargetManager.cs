@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SnapTargetManager : MonoBehaviour
 {
-    public SnapTarget[] SnapTargets;
+    public List<SnapTarget> SnapTargets;
 
     public bool TryGetSnapPoint(Vector3 legWorldPos, out Vector3 snapPoint, out SnapTarget snapTarget)
     {

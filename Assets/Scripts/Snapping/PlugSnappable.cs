@@ -126,7 +126,13 @@ public class PlugSnappable : MonoBehaviour
         if (isSnapped) return;
         if (!xrGrab.isSelected) return;
 
-        if(breadboardManager.TryGetSnapPoint(leg.transform.position, out Vector3 snapPoint, out _, out _))
+        if (breadboardManager == null) breadboardManager = FindAnyObjectByType<BreadboardManager>();
+        if (snapTargetManager == null) snapTargetManager = FindAnyObjectByType<SnapTargetManager>();
+        if (snapVisualizer == null) snapVisualizer = FindAnyObjectByType<SnapVisualizer>();
+
+
+
+        if (breadboardManager.TryGetSnapPoint(leg.transform.position, out Vector3 snapPoint, out _, out _))
         {
             snapVisualizer.Show(snapPoint);
         }
