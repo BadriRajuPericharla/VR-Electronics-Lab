@@ -64,6 +64,7 @@ public class PlugSnappable : MonoBehaviour
         breadboardManager.ReleaseHole(leg.occupiedHoleKey);
         leg.occupiedHoleKey = "";
         leg.ClearSnap();
+        
 
         if (occupiedTarget != null)
         {
@@ -71,6 +72,15 @@ public class PlugSnappable : MonoBehaviour
             occupiedTarget = null;
         }
         parentWire.OnPlugUnsnapped();
+        StartCoroutine(ReparentAfterRelease());
+    }
+
+    private IEnumerator ReparentAfterRelease()
+    {
+        yield return new WaitUntil(() => !xrGrab.isSelected);
+        yield return null;
+
+        transform.SetParent(parentWire.transform);
     }
 
     private void OnReleased(SelectExitEventArgs args)
