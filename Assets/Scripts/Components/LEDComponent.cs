@@ -47,13 +47,7 @@ public class LEDComponent : CircuitComponent
         currentState = LEDState.Off;
     }
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.LeftShift))
-    //    {
-    //        SetState(LEDState.Blown);
-    //    }
-    //}
+    public override bool CanSnap => currentState != LEDState.Blown;
 
     public override void UpdateState(float deltaTime, Dictionary<string, Node> nodeMap)
     {

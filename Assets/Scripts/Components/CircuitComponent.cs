@@ -6,6 +6,7 @@ public abstract class CircuitComponent : MonoBehaviour
 {
     public ComponentLeg[] legs;
 
+    public virtual bool CanSnap => true;
     public abstract void Simulate(CircuitSolver solver);
     public abstract void Stamp(float[,] G, float[] I, List<Node> unknownNodes, float deltaTime);
     public abstract void UpdateState(float deltaTime, Dictionary<string, Node> nodeMap);

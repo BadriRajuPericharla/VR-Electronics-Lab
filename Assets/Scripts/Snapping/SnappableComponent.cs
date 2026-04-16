@@ -142,6 +142,9 @@ public class SnappableComponent : MonoBehaviour
             yield break;
         }
 
+        if(component != null && !component.CanSnap)
+            yield break;
+
         if (TrySnapAllLegs())
         {
             isPlaced = true;
