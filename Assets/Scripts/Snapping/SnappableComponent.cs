@@ -224,7 +224,7 @@ public class SnappableComponent : MonoBehaviour
 
         for(int i = 0; i <legs.Length; i++)
         {
-            if (breadboardManager.TryGetSnapPoint(legs[i].transform.position, out Vector3 snapPoint, out _, out string holekey))
+            if (breadboardManager.TryGetSnapPoint(legs[i].transform.position, out Vector3 snapPoint, out _, out string holekey) && component.CanSnap)
             {
                 if (targetedHoles.Contains(holekey))
                 {
