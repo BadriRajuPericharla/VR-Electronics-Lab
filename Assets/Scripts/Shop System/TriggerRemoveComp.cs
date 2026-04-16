@@ -35,6 +35,7 @@ public class TriggerRemoveComp : MonoBehaviour
     private void CheckAndRemoveComp(Collider other)
     {
         CircuitComponent component = other.GetComponentInParent<CircuitComponent>();
+
         //compMR = other.GetComponentInParent<MeshRenderer>();
 
         if (component != null)
@@ -48,7 +49,11 @@ public class TriggerRemoveComp : MonoBehaviour
 
             if (interactable != null && !interactable.isSelected)
             {
-                RemoveComponent(interactable.gameObject);
+                //if(component is JumperWireComponent wireComponent) 
+                //    RemoveComponent(wireComponent.gameObject);
+                //else
+                //    RemoveComponent(interactable.gameObject);
+                RemoveComponent(component.gameObject);
             }
         }
     }
