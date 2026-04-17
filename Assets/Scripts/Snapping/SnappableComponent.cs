@@ -193,6 +193,7 @@ public class SnappableComponent : MonoBehaviour
         Vector3 midPoint = (pendingSnapPoints[0] + pendingSnapPoints[1]) / 2f;
         midPoint += Vector3.up * componentHeightOffset;
         transform.position = midPoint;
+        transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
 
         
 

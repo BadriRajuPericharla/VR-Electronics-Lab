@@ -8094,23 +8094,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5543820390092526526, guid: 0f14a92e259be974ca4a53e6b01143e4, type: 3}
       propertyPath: showGizmos
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5543820390092526526, guid: 0f14a92e259be974ca4a53e6b01143e4, type: 3}
       propertyPath: topPowerRail.snapRange
-      value: 0.05
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 5543820390092526526, guid: 0f14a92e259be974ca4a53e6b01143e4, type: 3}
       propertyPath: mainAreaLower.snapRange
-      value: 0.05
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 5543820390092526526, guid: 0f14a92e259be974ca4a53e6b01143e4, type: 3}
       propertyPath: mainAreaUpper.snapRange
-      value: 0.05
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 5543820390092526526, guid: 0f14a92e259be974ca4a53e6b01143e4, type: 3}
       propertyPath: bottomPowerRail.snapRange
-      value: 0.05
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 7391038674121913344, guid: 0f14a92e259be974ca4a53e6b01143e4, type: 3}
       propertyPath: m_Name
