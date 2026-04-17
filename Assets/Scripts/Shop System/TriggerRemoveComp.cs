@@ -20,19 +20,26 @@ public class TriggerRemoveComp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (IsHeldComp(other))
         {
-            PositionTheLabel(other.GetComponentInParent<CircuitComponent>().transform);
+            CircuitComponent comp = GetHeldCircuitComponent(other);
+            if (comp == null) return;
+
+            Transform compTf = comp is JumperWireComponent ? other.transform : comp.transform;
+            PositionTheLabel(compTf);
             deleteLabelCanvas.SetActive(true);
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        CircuitComponent comp = other.GetComponentInParent<CircuitComponent>();
+        CircuitComponent comp = GetHeldCircuitComponent(other);
         if (comp == null) return;
 
-        PositionTheLabel(comp.transform);
+
+        Transform compTf = comp is JumperWireComponent ? other.transform : comp.transform;
+        PositionTheLabel(compTf);
 
         XRGrabInteractable interactable = other.GetComponentInParent<XRGrabInteractable>();
 
@@ -51,11 +58,30 @@ public class TriggerRemoveComp : MonoBehaviour
 
     private bool IsHeldComp(Collider other)
     {
-        if(other.GetComponentInParent<CircuitComponent>() == null) return false;
 
-        XRGrabInteractable interactable = other.GetComponentInParent<XRGrabInteractable>();
+        if(other.GetComponentInParent<CircuitComponent>() != null)
+        {
+            XRGrabInteractable interactable = other.GetComponentInParent<XRGrabInteractable>();
+            return interactable != null && interactable.isSelected;
+        }
 
-        return interactable != null && interactable.isSelected;
+        if (other.GetComponentInParent<PlugSnappable>() != null)
+        {
+            XRGrabInteractable interactable = other.GetComponentInParent<XRGrabInteractable>();
+            return interactable != null && interactable.isSelected;
+        }
+        return false;
+    }
+
+    private CircuitComponent GetHeldCircuitComponent(Collider other)
+    {
+        CircuitComponent comp = other.GetComponentInParent<CircuitComponent>();
+        if (comp != null) return comp;
+
+        PlugSnappable plug = other.GetComponentInParent<PlugSnappable>();
+        if (plug != null) return plug.parentWire;
+
+        return null;
     }
 
 
@@ -70,5 +96,6 @@ public class TriggerRemoveComp : MonoBehaviour
     private void RemoveComponent(GameObject comp)
     {
         Destroy(comp);
+        AudioManager.instance.PlayComponentDestroySound();
     }
 }
