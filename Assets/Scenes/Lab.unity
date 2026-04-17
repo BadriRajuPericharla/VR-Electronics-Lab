@@ -469,6 +469,71 @@ CapsuleCollider:
   m_Height: 0.73912835
   m_Direction: 1
   m_Center: {x: 0.00000003973643, y: 0.049919408, z: -0.0033880472}
+--- !u!1001 &66616167
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 601668747316668119, guid: 77a281a86abdd3a41a6d5f92e09f70b9, type: 3}
+      propertyPath: m_Name
+      value: JumperWire
+      objectReference: {fileID: 0}
+    - target: {fileID: 872050888222648289, guid: 77a281a86abdd3a41a6d5f92e09f70b9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258442996374294827, guid: 77a281a86abdd3a41a6d5f92e09f70b9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.803
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258442996374294827, guid: 77a281a86abdd3a41a6d5f92e09f70b9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.064
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258442996374294827, guid: 77a281a86abdd3a41a6d5f92e09f70b9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.23100102
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258442996374294827, guid: 77a281a86abdd3a41a6d5f92e09f70b9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258442996374294827, guid: 77a281a86abdd3a41a6d5f92e09f70b9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258442996374294827, guid: 77a281a86abdd3a41a6d5f92e09f70b9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258442996374294827, guid: 77a281a86abdd3a41a6d5f92e09f70b9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258442996374294827, guid: 77a281a86abdd3a41a6d5f92e09f70b9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258442996374294827, guid: 77a281a86abdd3a41a6d5f92e09f70b9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258442996374294827, guid: 77a281a86abdd3a41a6d5f92e09f70b9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8090728942693263033, guid: 77a281a86abdd3a41a6d5f92e09f70b9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 77a281a86abdd3a41a6d5f92e09f70b9, type: 3}
 --- !u!1 &98912685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,6 +1292,8 @@ MonoBehaviour:
   componentDetachSound: {fileID: 8300000, guid: 8844bfcb123a0af4da86e8693b82af6d, type: 3}
   ledPopSound: {fileID: 8300000, guid: c1fb534370e291245bec6604bc27f490, type: 3}
   ledHumSound: {fileID: 8300000, guid: e73113b186a8eb4408461a5ccc63eb1c, type: 3}
+  componentSpawnSound: {fileID: 8300000, guid: a15e6d1d169641546b3cf20a3e4cac2b, type: 3}
+  componentDestroyedSound: {fileID: 8300000, guid: 9046d3f4bace77c4faf0bf40b3592f81, type: 3}
 --- !u!1 &413421158
 GameObject:
   m_ObjectHideFlags: 0
@@ -8185,3 +8252,4 @@ SceneRoots:
   - {fileID: 1693238662}
   - {fileID: 12778689}
   - {fileID: 1856466577}
+  - {fileID: 66616167}

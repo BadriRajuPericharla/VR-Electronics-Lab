@@ -11,6 +11,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip componentDetachSound;
     [SerializeField] private AudioClip ledPopSound;
     [SerializeField] private AudioClip ledHumSound;
+    [SerializeField] private AudioClip componentSpawnSound;
+    [SerializeField] private AudioClip componentDestroyedSound;
+
 
 
     public static AudioManager instance;
@@ -47,6 +50,15 @@ public class AudioManager : MonoBehaviour
         audioSource.Play();
     }
 
+    public void PlayComponentSpawnSound()
+    {
+        audioSource?.PlayOneShot(componentSpawnSound, 2f);
+    }
+
+    public void PlayComponentDestroySound()
+    {
+        audioSource?.PlayOneShot(componentDestroyedSound, 1.5f);
+    }
 
     public void StopLEDHumSound()
     {

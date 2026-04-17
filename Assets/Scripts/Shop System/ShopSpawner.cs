@@ -24,7 +24,6 @@ public class ShopSpawner : MonoBehaviour
     private GameObject InstantiateInFront(GameObject prefab)
     {
         Vector3 spawnPos = Camera.main.transform.position + Camera.main.transform.forward * 0.3f;
-
         Quaternion spawnRot = Quaternion.identity;
 
         return Instantiate(prefab, spawnPos, spawnRot);
