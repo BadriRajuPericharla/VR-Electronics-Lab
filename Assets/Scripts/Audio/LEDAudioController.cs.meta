@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: a8ebf14362063a940a30221de92d09d4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - ledPopSound: {fileID: 8300000, guid: c1fb534370e291245bec6604bc27f490, type: 3}
+  - ledHumSound: {fileID: 8300000, guid: e73113b186a8eb4408461a5ccc63eb1c, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -34,6 +34,9 @@ public class LEDComponent : CircuitComponent
     public Material blownMaterial;
 
 
+    private LEDAudioController ledAudioController;
+
+
 
 
     public enum LEDState {Off, Glowing, Blown};
@@ -45,6 +48,7 @@ public class LEDComponent : CircuitComponent
     private void Start()
     {
         currentState = LEDState.Off;
+        ledAudioController = GetComponent<LEDAudioController>();
     }
 
     public override bool CanSnap => currentState != LEDState.Blown;
@@ -211,7 +215,7 @@ public class LEDComponent : CircuitComponent
             glowLight.enabled = false;
         }
 
-        AudioManager.instance.StopLEDHumSound();
+        ledAudioController.StopLEDHumSound();
     }
 
     private void ApplyGlow()
@@ -230,7 +234,7 @@ public class LEDComponent : CircuitComponent
             glowLight.intensity = 2f;
         }
 
-        AudioManager.instance.PlayLEDHumSound();
+        ledAudioController.PlayLEDHumSound();
     }
 
     private void ApplyBlown()
@@ -254,8 +258,8 @@ public class LEDComponent : CircuitComponent
             mr2.material = blownMaterial;
         }
 
-        AudioManager.instance.StopLEDHumSound();
-        AudioManager.instance.PlayLEDBlownSound();
+        ledAudioController.StopLEDHumSound();
+        ledAudioController.PlayLEDBlownSound();
 
 
         Invoke(nameof(ApplyOff), 0.1f);

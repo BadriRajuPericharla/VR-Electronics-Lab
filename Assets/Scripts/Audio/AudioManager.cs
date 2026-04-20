@@ -9,8 +9,6 @@ public class AudioManager : MonoBehaviour
     [Header("Sounds")]
     [SerializeField] private AudioClip componentAttachSound;
     [SerializeField] private AudioClip componentDetachSound;
-    [SerializeField] private AudioClip ledPopSound;
-    [SerializeField] private AudioClip ledHumSound;
     [SerializeField] private AudioClip componentSpawnSound;
     [SerializeField] private AudioClip componentDestroyedSound;
 
@@ -38,17 +36,7 @@ public class AudioManager : MonoBehaviour
         audioSource?.PlayOneShot(componentDetachSound, 0.1f);
     }
 
-    public void PlayLEDBlownSound()
-    {
-        audioSource?.PlayOneShot(ledPopSound);
-    }
-
-    public void PlayLEDHumSound()
-    {
-        audioSource.clip = ledHumSound;
-        audioSource.loop = true;
-        audioSource.Play();
-    }
+   
 
     public void PlayComponentSpawnSound()
     {
@@ -60,10 +48,4 @@ public class AudioManager : MonoBehaviour
         audioSource?.PlayOneShot(componentDestroyedSound, 1.5f);
     }
 
-    public void StopLEDHumSound()
-    {
-        if (audioSource == null || audioSource.clip != ledHumSound) return;
-
-        if(audioSource.isPlaying) audioSource.Stop();
-    }
 }
