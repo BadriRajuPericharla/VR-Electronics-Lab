@@ -73,9 +73,9 @@ Material:
     - _OutlineWidth: 0
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 1
-    - _ScaleRatioB: 1
-    - _ScaleRatioC: 1
+    - _ScaleRatioA: 0
+    - _ScaleRatioB: 0
+    - _ScaleRatioC: 0
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -120,9 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: Inter-VariableFont_opsz,wght SDF
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: 1321755940
   material: {fileID: -7375129120326529130}
-  materialHashCode: 0
+  materialHashCode: -692767868
   m_Version: 1.1.0
   m_SourceFontFileGUID: 4b78dc25786602349b5ac7da2c2f5ffd
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 4b78dc25786602349b5ac7da2c2f5ffd, type: 3}

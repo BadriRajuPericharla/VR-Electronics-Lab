@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   componentName: Resistor
   category: 1
-  icon: {fileID: 21300000, guid: c7f8848091644a045af6fa503de8ff2a, type: 3}
+  icon: {fileID: 21300000, guid: 48bee569c511bd14b89237825e5bf954, type: 3}
   prefab: {fileID: 4581958263775013027, guid: 5b43c0748f5f1ac4b87483fdcd7154a9, type: 3}
   valueLabels:
   - "10\u03A9"

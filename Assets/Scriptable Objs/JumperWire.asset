@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   componentName: Jumper Wire
   category: 3
-  icon: {fileID: 21300000, guid: df52d13be48949941a6518a0b604cf25, type: 3}
+  icon: {fileID: 21300000, guid: 2d3d764a3cbd412489db500f932297e5, type: 3}
   prefab: {fileID: 601668747316668119, guid: 77a281a86abdd3a41a6d5f92e09f70b9, type: 3}
   valueLabels: []
   values: []
