@@ -1,0 +1,3 @@
+- [User Profile](user_srinu.md) — Srinu's background, goals, and cognitive preferences
+- [Project Tech](project_indexzero_tech.md) — Technical architecture of VR Electronics Lab
+- [Collaboration Rules](feedback_srinu_style.md) — Guidance-first approach and communication style
