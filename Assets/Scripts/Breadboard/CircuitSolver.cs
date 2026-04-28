@@ -191,6 +191,21 @@ public class CircuitSolver : MonoBehaviour
 
             return $"{legRegion.regionName}_col_{col}";
         }
+        //if (legRegion.connectivityType == GridRegion.ConnectivityType.rowsConnected)
+        //{
+        //    int row = Mathf.RoundToInt(legPosRelToRegion.x / legRegion.rowSpacing);
+        //    row = Mathf.Clamp(row, 0, legRegion.rows - 1);
+
+        //    if (legRegion.isSegmentedCol) // reusing this flag for segmentation
+        //    {
+        //        int segmentIndex = row / legRegion.segmentedColSize;
+        //        return $"{legRegion.regionName}_seg_{segmentIndex}";
+        //    }
+        //    else
+        //    {
+        //        return $"{legRegion.regionName}_rail";
+        //    }
+        //}
         else
         {
             int col = Mathf.RoundToInt(legPosRelToRegion.z / legRegion.columnSpacing);
