@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class LEDComponent : CircuitComponent
@@ -49,6 +48,13 @@ public class LEDComponent : CircuitComponent
     {
         currentState = LEDState.Off;
         ledAudioController = GetComponent<LEDAudioController>();
+
+        // ledResistance was never initialised, causing a divide-by-zero (NaN current)
+        // in Simulate(). Derive a sane dynamic resistance from Vf / Imax.
+        if (maxSafeCurrent > 0f && forwardVoltage > 0f)
+            ledResistance = forwardVoltage / maxSafeCurrent;
+        else
+            ledResistance = 100f;
     }
 
     public override bool CanSnap => currentState != LEDState.Blown;
@@ -85,6 +91,7 @@ public class LEDComponent : CircuitComponent
         }
 
 
+        if (ledResistance <= 0f) ledResistance = 100f;
         float current = GetVoltageDrop(0, 1) / ledResistance;
 
         if (current > maxSafeCurrent)
@@ -215,7 +222,7 @@ public class LEDComponent : CircuitComponent
             glowLight.enabled = false;
         }
 
-        ledAudioController.StopLEDHumSound();
+        ledAudioController?.StopLEDHumSound();
     }
 
     private void ApplyGlow()
@@ -234,7 +241,7 @@ public class LEDComponent : CircuitComponent
             glowLight.intensity = 2f;
         }
 
-        ledAudioController.PlayLEDHumSound();
+        ledAudioController?.PlayLEDHumSound();
     }
 
     private void ApplyBlown()
@@ -258,8 +265,8 @@ public class LEDComponent : CircuitComponent
             mr2.material = blownMaterial;
         }
 
-        ledAudioController.StopLEDHumSound();
-        ledAudioController.PlayLEDBlownSound();
+        ledAudioController?.StopLEDHumSound();
+        ledAudioController?.PlayLEDBlownSound();
 
 
         Invoke(nameof(ApplyOff), 0.1f);

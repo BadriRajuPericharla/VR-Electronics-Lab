@@ -174,7 +174,7 @@ public class ShopUI : MonoBehaviour
         if (_selectedComponent.HasValues && _selectedIndex >= 0)
             value = _selectedComponent.values[_selectedIndex];
 
-        AudioManager.instance.PlayComponentSpawnSound();
+        AudioManager.instance?.PlayComponentSpawnSound();
         shopSpawner.SpawnInFrontOfCam(_selectedComponent.prefab, value);
         ToggleShop();
     }
