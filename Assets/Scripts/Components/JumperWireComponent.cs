@@ -74,15 +74,15 @@ public class JumperWireComponent : CircuitComponent
     {
         if(plugA.isSnapped && plugB.isSnapped)
         {
-            solver.RegisterComponent(this);
+            if (solver != null) solver.RegisterComponent(this);
         }
-        AudioManager.instance.PlayAttachSound();
+        AudioManager.instance?.PlayAttachSound();
     }
 
     public void OnPlugUnsnapped()
     {
-        solver.UnRegisterComponent(this);
-        AudioManager.instance.PlayDetachSound();
+        if (solver != null) solver.UnRegisterComponent(this);
+        AudioManager.instance?.PlayDetachSound();
     }
 
 

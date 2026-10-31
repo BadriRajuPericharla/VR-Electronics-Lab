@@ -23,7 +23,7 @@ public class BatteryComponent : CircuitComponent
         solver = FindAnyObjectByType<CircuitSolver>();
 
         isPowerOn = true;
-        OnPlaced();
+        if (solver != null) OnPlaced();
 
         if (simpleInteractable != null)
         {
@@ -53,7 +53,7 @@ public class BatteryComponent : CircuitComponent
             leg.snapTarget = leg.GetComponent<SnapTarget>();
         }
 
-        solver.RegisterComponent(this);
+        if (solver != null) solver.RegisterComponent(this);
     }
 
     //private void ApplyVisuals()

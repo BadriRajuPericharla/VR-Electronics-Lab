@@ -105,9 +105,9 @@ public class SnappableComponent : MonoBehaviour
 
         if (component != null)
         {
-            solver.UnRegisterComponent(component);
-            HapticController.instance.TriggerHaptics(0.3f, 0.3f, xrGrab);
-            AudioManager.instance.PlayDetachSound();
+            if (solver != null) solver.UnRegisterComponent(component);
+            HapticController.instance?.TriggerHaptics(0.3f, 0.3f, xrGrab);
+            AudioManager.instance?.PlayDetachSound();
         }
     }
 
@@ -157,8 +157,8 @@ public class SnappableComponent : MonoBehaviour
                 }
                 else
                 {
-                    solver.RegisterComponent(component);
-                    AudioManager.instance.PlayAttachSound();
+                    if (solver != null) solver.RegisterComponent(component);
+                    AudioManager.instance?.PlayAttachSound();
                 }
             }
 
@@ -216,6 +216,8 @@ public class SnappableComponent : MonoBehaviour
         if (isPlaced) return;
         if (!xrGrab.isSelected) return;
 
+        if (snapVisualizers == null || snapVisualizers.Length != legs.Length)
+            return;
 
         HashSet<string> targetedHoles = new HashSet<string>();
 

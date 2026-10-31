@@ -28,7 +28,7 @@ public class TriggerRemoveComp : MonoBehaviour
 
             Transform compTf = comp is JumperWireComponent ? other.transform : comp.transform;
             PositionTheLabel(compTf);
-            deleteLabelCanvas.SetActive(true);
+            if (deleteLabelCanvas != null) deleteLabelCanvas.SetActive(true);
         }
     }
 
@@ -87,15 +87,55 @@ public class TriggerRemoveComp : MonoBehaviour
 
     private void PositionTheLabel(Transform componentTf)
     {
+        if (cam == null) cam = Camera.main;
+        if (cam == null || deleteLabelCanvas == null) return;
         deleteLabelCanvas.transform.position = componentTf.position + labelHeightOffset * Vector3.up;
-
         deleteLabelCanvas.transform.LookAt(cam.transform);
         deleteLabelCanvas.transform.Rotate(0f, 180f, 0f);
     }
 
     private void RemoveComponent(GameObject comp)
     {
+        CircuitComponent circuitComp = comp.GetComponent<CircuitComponent>();
+        if (circuitComp == null) circuitComp = comp.GetComponentInChildren<CircuitComponent>();
+
+        BreadboardManager bbm = FindAnyObjectByType<BreadboardManager>();
+        CircuitSolver solver = FindAnyObjectByType<CircuitSolver>();
+
+        if (circuitComp != null)
+        {
+            // Release any occupied breadboard holes
+            if (bbm != null && circuitComp.legs != null)
+            {
+                foreach (ComponentLeg leg in circuitComp.legs)
+                {
+                    if (leg != null && !string.IsNullOrEmpty(leg.occupiedHoleKey))
+                    {
+                        bbm.ReleaseHole(leg.occupiedHoleKey);
+                        leg.occupiedHoleKey = "";
+                    }
+                }
+            }
+            if (solver != null) solver.UnRegisterComponent(circuitComp);
+        }
+
+        // Jumper wires: handle plugs
+        PlugSnappable[] plugs = comp.GetComponentsInChildren<PlugSnappable>();
+        foreach (PlugSnappable plug in plugs)
+        {
+            if (plug == null) continue;
+            if (plug.leg != null && bbm != null && !string.IsNullOrEmpty(plug.leg.occupiedHoleKey))
+            {
+                bbm.ReleaseHole(plug.leg.occupiedHoleKey);
+                plug.leg.occupiedHoleKey = "";
+            }
+            if (plug.parentWire != null && solver != null)
+            {
+                solver.UnRegisterComponent(plug.parentWire);
+            }
+        }
+
         Destroy(comp);
-        AudioManager.instance.PlayComponentDestroySound();
+        AudioManager.instance?.PlayComponentDestroySound();
     }
 }

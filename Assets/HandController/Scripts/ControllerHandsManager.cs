@@ -20,7 +20,7 @@ public class ControllerHandsManager : MonoBehaviour
 
     private void SetupInputActions()
     {
-        if(triggerActionRef != null && gripActionRef != null)
+        if (triggerActionRef != null && gripActionRef != null && triggerActionRef.action != null && gripActionRef.action != null)
         {
             triggerActionRef.action.performed += ctx => UpdateAnimator("Trigger", ctx.ReadValue<float>());
             triggerActionRef.action.canceled += ctx => UpdateAnimator("Trigger", 0);
@@ -49,14 +49,14 @@ public class ControllerHandsManager : MonoBehaviour
 
     private void OnEnable()
     {
-        triggerActionRef?.action.Enable();
-        gripActionRef?.action.Enable();
+        if (triggerActionRef != null && triggerActionRef.action != null) triggerActionRef.action.Enable();
+        if (gripActionRef != null && gripActionRef.action != null) gripActionRef.action.Enable();
     }
 
     private void OnDisable()
     {
-        triggerActionRef?.action.Disable();
-        gripActionRef?.action.Disable();
+        if (triggerActionRef != null && triggerActionRef.action != null) triggerActionRef.action.Disable();
+        if (gripActionRef != null && gripActionRef.action != null) gripActionRef.action.Disable();
     }
 
 }

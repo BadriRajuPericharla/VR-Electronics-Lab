@@ -211,15 +211,22 @@ public class CircuitSolver : MonoBehaviour
             int col = Mathf.RoundToInt(legPosRelToRegion.z / legRegion.columnSpacing);
             col = Mathf.Clamp(col, 0, legRegion.columns - 1);
 
+            // Power rails (top/bottom "source & ground") are laid out as rows (one
+            // conductor per row). The row index MUST be part of the node key so the
+            // positive and negative rails are not collapsed into a single node
+            // (which would short VCC to GND). Previously only the column/segment
+            // was used, merging both rails.
+            int row = Mathf.RoundToInt(legPosRelToRegion.x / legRegion.rowSpacing);
+            row = Mathf.Clamp(row, 0, legRegion.rows - 1);
 
             if (legRegion.isSegmentedCol)
             {
                 int segmentIndex = col / legRegion.segmentedColSize;
-                return $"{legRegion.regionName}_seg_{segmentIndex}";
+                return $"{legRegion.regionName}_row{row}_seg_{segmentIndex}";
             }
             else
             {
-                return $"{legRegion.regionName}_rail";
+                return $"{legRegion.regionName}_row{row}_rail";
             }
         }
     }
